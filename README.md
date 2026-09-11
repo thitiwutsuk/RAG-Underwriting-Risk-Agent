@@ -77,13 +77,26 @@
 
 ```mermaid
 flowchart LR
-    A[Policy PDFs + Underwriting Excel] --> B[Ingestion<br/>ingest.py]
-    B --> C[(ChromaDB)]
-    C --> D[LangGraph Agent<br/>risk_calculator + policy_lookup]
-    D --> E[Guardrails]
-    E --> F[FastAPI /assess]
-    F --> G[Next.js Frontend]
-    F --> H[Evaluation + Benchmark<br/>DeepEval]
+    subgraph Ingestion
+        PDF[Policy PDFs] --> Ingest[ingest.py]
+        XLS[Underwriting Excel] --> Ingest
+        Ingest --> Chroma[(ChromaDB)]
+    end
+
+    subgraph Runtime
+        UI[Next.js Frontend] --> API[FastAPI /assess]
+        API --> InGuard[Input Guardrail<br/>prompt-injection check]
+        InGuard --> Agent[LangGraph Agent]
+        Agent --> RiskCalc[risk_calculator]
+        Agent --> Lookup[policy_lookup]
+        RiskCalc -.reads.-> XLS
+        Lookup -.queries.-> Chroma
+        Agent --> OutGuard[Output Guardrail<br/>disclaimer check]
+        OutGuard --> API
+        API --> UI
+    end
+
+    API -.-> Eval[DeepEval Evaluation<br/>+ Latency Benchmark]
 ```
 
 1. **Data Ingestion** (`ingest.py`)
