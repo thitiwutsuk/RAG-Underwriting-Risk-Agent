@@ -1,8 +1,6 @@
 # RAG-Powered Decision Assistant
 
-<p>
-  <img src="https://img.shields.io/badge/%F0%9F%94%92_repo-private-critical?style=for-the-badge" alt="Private repository" />
-</p>
+> Includes real insurance policy specimens published by RBC Insurance, used for non-commercial reference with attribution (see [Data](#data)). Not affiliated with or endorsed by RBC Insurance.
 
 <p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
@@ -67,11 +65,12 @@
 ## Data
 
 - **Underwriting criteria (Excel)** — synthetic (age, BMI, health history, occupation risk, risk formula). Real insurer formulas are proprietary; this is authored from scratch.
-- **Policy documents (PDF)** — real specimen policies publicly published by RBC Insurance (term life, term 100, universal life, critical illness, disability income).
-  - Sources/attribution: `backend/data/README.md`.
+- **Policy documents (PDF)** — real specimen policies published by **RBC Insurance** (© RBC Life Insurance Company) for public consumer reference: term life, term 100, universal life, critical illness, disability income.
+  - Used here strictly for non-commercial, educational/portfolio purposes — this project is not affiliated with, endorsed by, or sponsored by RBC Insurance.
+  - Each specimen is marked "Specimen"/"Sample" by RBC, meaning it's a published copy for public review, not any real policyholder's contract.
+  - Full source list and per-file attribution: `backend/data/README.md`.
   - Gitignored, never committed (`backend/data/policies/*.pdf`); fetch via `python scripts/download_real_policies.py`.
-  - **Repository must stay private** — local copies of copyrighted material exist once downloaded.
-  - Synthetic fallback available at `backend/data/policies_mock_backup/` if the project ever needs to go public.
+  - Synthetic fallback available at `backend/data/policies_mock_backup/` (fully original, written from scratch) if the RBC content ever needs to be removed.
 - **Applicant cases** — 26 synthetic applicants (18 generated + 8 edge cases). No real personal or health data anywhere in this project.
 
 ## Core Features / Architecture
@@ -184,9 +183,9 @@ project/
 - **LangGraph checkpointer for session isolation**, not a hand-rolled dict.
   - `InMemorySaver` keyed by `thread_id=session_id`, verified under concurrency.
   - Trade-off: in-process RAM — doesn't survive a restart or scale past one instance. Acceptable for this project; a production deployment would swap in a persistent checkpointer.
-- **Real copyrighted policy PDFs over synthetic HTML**, traded against keeping the repo private permanently.
+- **Real RBC specimen PDFs over synthetic HTML**, deliberate realism-over-convenience call, credited per RBC's own publication terms (see Data section).
   - A synthetic document that says whatever is convenient makes faithfulness scores meaningless — no independent ground truth to be unfaithful *to*.
-  - `policies_mock_backup/` exists as a reversible fallback if the project needs to go public.
+  - `policies_mock_backup/` exists as a reversible fallback if the RBC content ever needs to be removed.
 - **System prompt branches on request type** (full assessment vs. general question) instead of one fixed format.
   - Added after the first DeepEval run showed the rigid 5-heading format hurt relevancy on plain questions.
   - Kept as one shared prompt rather than two agents/endpoints — tools and guardrail requirements are identical either way.
@@ -200,7 +199,7 @@ project/
 ## Notes / Constraints
 
 - Applicant/underwriting data must always be synthetic — never real customer or health data.
-- Repository is **private** (real copyrighted specimen PDFs, see Data). Never push to a public remote — deploying the running app is unaffected, since Vercel/Render deploy from private repos.
+- Third-party policy content (RBC specimen PDFs, see Data) is used for non-commercial reference only, with attribution — not affiliated with or endorsed by RBC Insurance.
 - Prioritize a working end-to-end pipeline over polish; frontend UI polish comes last.
 - Every metric (latency reduction, DeepEval scores) is backed by a documented methodology, not asserted.
 - API keys live in `.env` only, never committed.

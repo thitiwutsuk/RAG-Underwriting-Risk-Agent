@@ -1,18 +1,17 @@
 # Data
 
-## ⚠️ Real copyrighted policy PDFs — gitignored, never committed
+## Real RBC Insurance specimen PDFs — attribution
 
-- `data/policies/*.pdf` are real specimen/sample insurance policy documents, publicly published by RBC Insurance for consumer reference, downloaded from rbcinsurance.com.
-  - © RBC Life Insurance Company — used here for private development/testing only.
-  - Listed in `.gitignore` (`backend/data/policies/*.pdf`) — never enter git history, not even in a private repo.
+- `data/policies/*.pdf` are real specimen/sample insurance policy documents, published by **RBC Insurance** (© RBC Life Insurance Company) for public consumer reference, downloaded from rbcinsurance.com.
+  - Used here for non-commercial, educational/portfolio purposes only. This project is not affiliated with, endorsed by, or sponsored by RBC Insurance.
+  - All files marked "Specimen"/"Sample" by RBC — published copies for public review, not any real policyholder's contract.
+  - Listed in `.gitignore` (`backend/data/policies/*.pdf`) — kept out of git history to avoid redistributing the binaries directly; the source URLs and this attribution are documented instead.
 - **A fresh clone will not have these files.** Fetch them with:
   ```bash
   python scripts/download_real_policies.py
   python ingest.py   # rebuild the ChromaDB collection afterwards
   ```
-- **Still do not make this repository public**, even though git doesn't track the PDFs — anyone who has already cloned it, or runs the download script, has local copies.
-  - If this project needs to go public: drop the download script's purpose entirely and switch back to the synthetic fallback (`policies_mock_backup/` below).
-- All files marked "Specimen" by the issuer — published copies for public review, not any real policyholder's contract.
+- To remove RBC content entirely (e.g. for a stricter redistribution policy): switch to the synthetic fallback (`policies_mock_backup/` below) — delete `policies/*.pdf`, move the `.html` files into `policies/`, and point `ingest.py`'s policy-parsing function at HTML instead of PDF.
 
 | File | Product | Source |
 |---|---|---|
@@ -27,9 +26,9 @@
 
 ## `policies_mock_backup/`
 
-- Fully-synthetic HTML policy templates (written from scratch), used before switching to the real specimen PDFs above.
-- Drop-in fallback for going public: delete `policies/*.pdf`, move these back into `policies/`.
-  - `ingest.py` would need its policy-parsing function pointed at `.html` again — see git history for the previous version.
+- Fully-synthetic HTML policy templates (written from scratch), predating the switch to the real specimen PDFs above.
+- Fallback for removing RBC content: delete `policies/*.pdf`, move these into `policies/`.
+  - `ingest.py` only has a PDF parser (`chunk_pdf_policy`) today — an HTML equivalent needs to be written; there's no prior version to restore.
 
 ## `underwriting_criteria.xlsx`
 
