@@ -25,6 +25,15 @@
   <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
 </p>
 
+## Demo
+
+| Assessment result (light) | Applicant form (dark) |
+|---|---|
+| ![Assessment result showing risk tier, reasoning, and cited policy sources](./docs/screenshots/assessment-light.png) | ![Applicant form in dark mode](./docs/screenshots/form-dark.png) |
+
+- Not deployed yet — see [Deployment](#deployment) for the plan and [DEPLOYMENT.md](./DEPLOYMENT.md) for the steps.
+- Run it locally: backend `uvicorn main:app` (from `backend/`), frontend `npm run dev` (from `frontend/`) — see `.env.example` for required env vars.
+
 ## Project Goal
 
 - Full-stack, RAG-powered decision assistant for structured case assessment.
