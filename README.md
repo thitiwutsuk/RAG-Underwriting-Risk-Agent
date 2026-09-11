@@ -75,6 +75,17 @@
 
 ## Core Features / Architecture
 
+```mermaid
+flowchart LR
+    A[Policy PDFs + Underwriting Excel] --> B[Ingestion<br/>ingest.py]
+    B --> C[(ChromaDB)]
+    C --> D[LangGraph Agent<br/>risk_calculator + policy_lookup]
+    D --> E[Guardrails]
+    E --> F[FastAPI /assess]
+    F --> G[Next.js Frontend]
+    F --> H[Evaluation + Benchmark<br/>DeepEval]
+```
+
 1. **Data Ingestion** (`ingest.py`)
    - Parses Excel + PDF sources, chunks and embeds into ChromaDB.
 
