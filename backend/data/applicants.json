@@ -1,0 +1,477 @@
+[
+  {
+    "applicant_id": "APP-001",
+    "name": "Avery Martinez",
+    "age": 59,
+    "gender": "Male",
+    "height_cm": 157,
+    "weight_kg": 47.6,
+    "bmi": 19.3,
+    "smoker": true,
+    "occupation": "Healthcare Administrator",
+    "occupation_class": "Class 2 - Low",
+    "health_conditions": [
+      "Asthma (severe, persistent)"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-002",
+    "name": "Alex Lee",
+    "age": 24,
+    "gender": "Female",
+    "height_cm": 163,
+    "weight_kg": 58.5,
+    "bmi": 22.0,
+    "smoker": false,
+    "occupation": "Commercial Fisherman",
+    "occupation_class": "Class 4 - High",
+    "health_conditions": [
+      "Type 2 Diabetes (uncontrolled)",
+      "None declared"
+    ],
+    "policy_type_requested": "Universal Life",
+    "coverage_amount_usd": 100000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-003",
+    "name": "Jamie Anderson",
+    "age": 63,
+    "gender": "Male",
+    "height_cm": 177,
+    "weight_kg": 73.4,
+    "bmi": 23.4,
+    "smoker": true,
+    "occupation": "Teacher",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "Hypertension (controlled)",
+      "Asthma (mild, intermittent)"
+    ],
+    "policy_type_requested": "Universal Life",
+    "coverage_amount_usd": 250000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-004",
+    "name": "Rowan Kim",
+    "age": 57,
+    "gender": "Female",
+    "height_cm": 166,
+    "weight_kg": 81.3,
+    "bmi": 29.5,
+    "smoker": true,
+    "occupation": "Commercial Diver",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Asthma (mild, intermittent)"
+    ],
+    "policy_type_requested": "Accidental Death & Dismemberment",
+    "coverage_amount_usd": 100000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-005",
+    "name": "Drew Garcia",
+    "age": 64,
+    "gender": "Male",
+    "height_cm": 154,
+    "weight_kg": 46.5,
+    "bmi": 19.6,
+    "smoker": true,
+    "occupation": "Retail Sales Associate",
+    "occupation_class": "Class 2 - Low",
+    "health_conditions": [
+      "Type 2 Diabetes (uncontrolled)",
+      "Family history - heart disease"
+    ],
+    "policy_type_requested": "Disability Income",
+    "coverage_amount_usd": 250000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-006",
+    "name": "Cameron Garcia",
+    "age": 29,
+    "gender": "Male",
+    "height_cm": 173,
+    "weight_kg": 70.7,
+    "bmi": 23.6,
+    "smoker": false,
+    "occupation": "Offshore Oil Rig Worker",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Family history - heart disease"
+    ],
+    "policy_type_requested": "Health & Medical",
+    "coverage_amount_usd": 250000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-007",
+    "name": "Skyler Smith",
+    "age": 59,
+    "gender": "Male",
+    "height_cm": 194,
+    "weight_kg": 98.8,
+    "bmi": 26.3,
+    "smoker": true,
+    "occupation": "Offshore Oil Rig Worker",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Asthma (severe, persistent)"
+    ],
+    "policy_type_requested": "Critical Illness",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-008",
+    "name": "Jamie Walker",
+    "age": 32,
+    "gender": "Female",
+    "height_cm": 186,
+    "weight_kg": 105.1,
+    "bmi": 30.4,
+    "smoker": false,
+    "occupation": "Electrician",
+    "occupation_class": "Class 3 - Moderate",
+    "health_conditions": [
+      "Type 2 Diabetes (uncontrolled)"
+    ],
+    "policy_type_requested": "Whole Life",
+    "coverage_amount_usd": 100000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-009",
+    "name": "Peyton Chen",
+    "age": 66,
+    "gender": "Female",
+    "height_cm": 185,
+    "weight_kg": 89.0,
+    "bmi": 26.0,
+    "smoker": false,
+    "occupation": "Commercial Diver",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Mental health condition (managed)"
+    ],
+    "policy_type_requested": "Health & Medical",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-010",
+    "name": "Riley Davis",
+    "age": 67,
+    "gender": "Male",
+    "height_cm": 153,
+    "weight_kg": 70.7,
+    "bmi": 30.2,
+    "smoker": false,
+    "occupation": "Teacher",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "Family history - heart disease",
+      "Type 2 Diabetes (uncontrolled)"
+    ],
+    "policy_type_requested": "Accidental Death & Dismemberment",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-011",
+    "name": "Cameron Anderson",
+    "age": 62,
+    "gender": "Male",
+    "height_cm": 157,
+    "weight_kg": 68.7,
+    "bmi": 27.9,
+    "smoker": false,
+    "occupation": "Delivery Rider",
+    "occupation_class": "Class 4 - High",
+    "health_conditions": [
+      "Hypertension (uncontrolled)",
+      "Family history - heart disease"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 250000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-012",
+    "name": "Drew Lee",
+    "age": 51,
+    "gender": "Male",
+    "height_cm": 161,
+    "weight_kg": 66.4,
+    "bmi": 25.6,
+    "smoker": false,
+    "occupation": "Accountant",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "Mental health condition (managed)"
+    ],
+    "policy_type_requested": "Universal Life",
+    "coverage_amount_usd": 1000000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-013",
+    "name": "Morgan Thomas",
+    "age": 19,
+    "gender": "Female",
+    "height_cm": 188,
+    "weight_kg": 82.0,
+    "bmi": 23.2,
+    "smoker": false,
+    "occupation": "Software Engineer",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "Type 2 Diabetes (controlled)"
+    ],
+    "policy_type_requested": "Accidental Death & Dismemberment",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-014",
+    "name": "Casey Patel",
+    "age": 24,
+    "gender": "Female",
+    "height_cm": 181,
+    "weight_kg": 97.0,
+    "bmi": 29.6,
+    "smoker": false,
+    "occupation": "Delivery Rider",
+    "occupation_class": "Class 4 - High",
+    "health_conditions": [
+      "Mental health condition (managed)"
+    ],
+    "policy_type_requested": "Universal Life",
+    "coverage_amount_usd": 1000000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-015",
+    "name": "Jamie Wilson",
+    "age": 46,
+    "gender": "Female",
+    "height_cm": 163,
+    "weight_kg": 82.6,
+    "bmi": 31.1,
+    "smoker": false,
+    "occupation": "Commercial Diver",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Mental health condition (managed)",
+      "Family history - heart disease"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 100000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-016",
+    "name": "Avery Martinez",
+    "age": 33,
+    "gender": "Male",
+    "height_cm": 154,
+    "weight_kg": 55.5,
+    "bmi": 23.4,
+    "smoker": true,
+    "occupation": "Commercial Fisherman",
+    "occupation_class": "Class 4 - High",
+    "health_conditions": [
+      "Type 2 Diabetes (controlled)"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 50000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-017",
+    "name": "Emerson Lee",
+    "age": 40,
+    "gender": "Male",
+    "height_cm": 154,
+    "weight_kg": 60.9,
+    "bmi": 25.7,
+    "smoker": false,
+    "occupation": "Healthcare Administrator",
+    "occupation_class": "Class 2 - Low",
+    "health_conditions": [
+      "Family history - heart disease"
+    ],
+    "policy_type_requested": "Universal Life",
+    "coverage_amount_usd": 500000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-018",
+    "name": "Reese Davis",
+    "age": 31,
+    "gender": "Female",
+    "height_cm": 156,
+    "weight_kg": 49.3,
+    "bmi": 20.3,
+    "smoker": false,
+    "occupation": "Mechanic",
+    "occupation_class": "Class 3 - Moderate",
+    "health_conditions": [
+      "Hypertension (controlled)"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 500000,
+    "notes": ""
+  },
+  {
+    "applicant_id": "APP-EDGE-01",
+    "name": "Marcus Webb",
+    "age": 58,
+    "gender": "Male",
+    "height_cm": 175,
+    "weight_kg": 122.0,
+    "bmi": 39.8,
+    "smoker": true,
+    "occupation": "Offshore Oil Rig Worker",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "Type 2 Diabetes (uncontrolled)",
+      "Hypertension (uncontrolled)"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 500000,
+    "notes": "High-risk composite: obesity, uncontrolled diabetes and hypertension, hazardous occupation, smoker. Expected to land in High Risk or Decline tier."
+  },
+  {
+    "applicant_id": "APP-EDGE-02",
+    "name": "Priya Raman",
+    "age": 41,
+    "gender": "Female",
+    "height_cm": 165,
+    "weight_kg": 85.3,
+    "bmi": 31.3,
+    "smoker": false,
+    "occupation": "Accountant",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "Hypertension (controlled)"
+    ],
+    "policy_type_requested": "Whole Life",
+    "coverage_amount_usd": 250000,
+    "notes": "Borderline case: BMI just inside Obese Class I band, otherwise low-risk profile. Tests sensitivity of the BMI band boundary."
+  },
+  {
+    "applicant_id": "APP-EDGE-03",
+    "name": "Daniel Ostrowski",
+    "age": 34,
+    "gender": "Male",
+    "height_cm": 180,
+    "weight_kg": 80.6,
+    "bmi": 24.9,
+    "smoker": false,
+    "occupation": "Software Engineer",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 750000,
+    "notes": "Borderline case: BMI exactly at the Normal/Overweight boundary (24.9). Tests whether the risk_calculator applies band edges inclusively and consistently."
+  },
+  {
+    "applicant_id": "APP-EDGE-04",
+    "name": "Grace Owusu",
+    "age": 29,
+    "gender": "Female",
+    "height_cm": 168,
+    "weight_kg": null,
+    "bmi": null,
+    "smoker": false,
+    "occupation": "Retail Sales Associate",
+    "occupation_class": "Class 2 - Low",
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Health & Medical",
+    "coverage_amount_usd": 100000,
+    "notes": "Missing field case: weight/BMI not provided. Tests that the agent asks a clarifying question or flags incomplete data rather than guessing."
+  },
+  {
+    "applicant_id": "APP-EDGE-05",
+    "name": "Tom Fischer",
+    "age": 47,
+    "gender": "Male",
+    "height_cm": 178,
+    "weight_kg": 82.0,
+    "bmi": 25.9,
+    "smoker": false,
+    "occupation": null,
+    "occupation_class": null,
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Disability Income",
+    "coverage_amount_usd": 300000,
+    "notes": "Missing field case: occupation not declared, which is required input for both risk_calculator and Disability Income underwriting (occupation class caps benefit period)."
+  },
+  {
+    "applicant_id": "APP-EDGE-06",
+    "name": "Elena Voss",
+    "age": 63,
+    "gender": "Female",
+    "height_cm": 160,
+    "weight_kg": 58.0,
+    "bmi": 22.7,
+    "smoker": false,
+    "occupation": "Teacher",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 150000,
+    "notes": "Low-risk baseline at the upper end of the eligible age band (63). Tests correct handling of the highest age bracket (56-65) without other risk factors."
+  },
+  {
+    "applicant_id": "APP-EDGE-07",
+    "name": "Ricardo Alves",
+    "age": 39,
+    "gender": "Male",
+    "height_cm": 172,
+    "weight_kg": 95.0,
+    "bmi": 32.1,
+    "smoker": true,
+    "occupation": "Commercial Diver",
+    "occupation_class": "Class 5 - Hazardous",
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Accidental Death & Dismemberment",
+    "coverage_amount_usd": 400000,
+    "notes": "Hazardous occupation with no declared health conditions, applying for an accident-only policy. Tests that occupation risk is weighed appropriately even when the product type (AD&D) does not medically underwrite."
+  },
+  {
+    "applicant_id": "APP-EDGE-08",
+    "name": "Chloe Bennett",
+    "age": 22,
+    "gender": "Female",
+    "height_cm": 163,
+    "weight_kg": 54.0,
+    "bmi": 20.3,
+    "smoker": false,
+    "occupation": "Software Engineer",
+    "occupation_class": "Class 1 - Minimal",
+    "health_conditions": [
+      "None declared"
+    ],
+    "policy_type_requested": "Term Life",
+    "coverage_amount_usd": 100000,
+    "notes": "Clean low-risk baseline case: young, healthy, low-risk occupation. Expected Preferred tier \u2014 used as a control case."
+  }
+]

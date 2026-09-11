@@ -1,0 +1,340 @@
+{
+  "summary": {
+    "threshold": 0.8,
+    "num_cases": 11,
+    "avg_faithfulness": 0.9848,
+    "avg_answer_relevancy": 0.8753,
+    "faithfulness_pass_rate": 1.0,
+    "answer_relevancy_pass_rate": 0.8182
+  },
+  "cases": [
+    {
+      "id": "policy-1",
+      "category": "policy_qa",
+      "actual_output": "Under the RBC Critical Illness Insurance Plan, the survival period for all critical illnesses is thirty (30) days. This means that the insured must survive for at least 30 days following the diagnosis of a critical illness before a claim can be payable. It's important to note that the survival period does not include the days spent on life support, and the critical illness benefit does not accrue during this period.\n\nCited Source: RBC Critical Illness Insurance Plan (Sample Policy), page 4.\n\nThis information is general and not a guarantee of coverage or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "waiting period critical illness claim RBC",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Critical Illness Insurance Plan (Sample Policy) (page 16): 1. give written notice of claim to us by delivery thereof, or by sending it by registered mail to our head office or chief agency in the province, not later than thirty (30) days from the date a claim arises under the contract on account of an accidental injury, sickness or critical illness; and 2. within ninety (90) days from the date a claim arises under the contract on account of an accidental injury, sickness or critical illness, furnish to us such proof as is reasonably possible in the circumstances of the happening of the accidental injury or the commencement of the sickness or critical illness, and the loss occasioned thereby, the right of the claimant to receive payment, his or her age, and the age of the recipient, if relevant; and 3. if so required by us, furnish a satisfactory certificate as to the cause of the accidental injury, sickness or critical illness, for which the claim may be made under the contract. Failure to Give Notice or Proof Failure to give notice of claim or furnish proof of claim within the time prescribed by this statutory condition does not",
+        "RBC Critical Illness Insurance Plan (Sample Policy) (page 4): number of consecutive days immediately following the date of such medical procedure that an insured must survive before the early assistance benefit becomes payable. The survival period for all critical illnesses is thirty (30) days unless otherwise stated within the critical illness definition. The critical illness benefit is not due and does not accrue during a survival period. The survival period does not include the number of days on life support. T10GR E 09-01 Critical Illness Recovery Plan \u2122 Page 7",
+        "RBC Critical Illness Insurance Plan (Sample Policy) (page 6): Specimen Terms of Payment Before paying a critical illness benefit or early assistance benefit, we will require written proof of the following: the diagnosis (where the defined critical illness requires a diagnosis) of the insured with a critical illness, by a specialist; the completion of the applicable survival period; the date of birth of the insured; and any other information we might reasonably request to evaluate the claim. We will not pay a critical illness benefit or an early assistance benefit if we determine that the insured was incorrectly diagnosed with the relevant critical illness. T10GR E 09-01 Critical Illness Recovery Plan \u2122 Page 9"
+      ],
+      "faithfulness_score": 0.8333333333333334,
+      "faithfulness_reason": "The score is 0.83 because the output is mostly aligned, but it incorrectly says the 30-day survival period follows diagnosis and implies this is when any claim becomes payable. The context instead says the survival period is generally 30 consecutive days immediately following the date of a medical procedure, and the critical illness benefit is not due during that period.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.8333333333333334,
+      "answer_relevancy_reason": "The score is 0.83 because the answer appears to address the waiting/survival period for when a critical illness claim becomes payable under the RBC Critical Illness Insurance Plan, but it is not higher because it included a generic disclaimer that was irrelevant to the specific question.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "policy-2",
+      "category": "policy_qa",
+      "actual_output": "The BMI range that counts as Obese Class I is from 30.0 to 34.9, and it adds 25 risk points according to the underwriting criteria. \n\nThis information is sourced from the underwriting criteria document (underwriting_criteria.xlsx, sheet: BMI). \n\nPlease note that this is general policy information and not a coverage guarantee or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Obese Class I BMI range and risk points",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "Underwriting criteria (BMI): bmi_min=30.0; bmi_max=34.9; category=Obese Class I; risk_points=25",
+        "Underwriting criteria (BMI): bmi_min=35.0; bmi_max=39.9; category=Obese Class II; risk_points=45",
+        "Underwriting criteria (BMI): bmi_min=40.0; bmi_max=99.0; category=Obese Class III; risk_points=70"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it accurate and faithful.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.625,
+      "answer_relevancy_reason": "The score is 0.62 because the answer likely touched on the underwriting topic but included vague generalities and unrelated disclaimers instead of directly and specifically stating the Obese Class I BMI range and the exact number of risk points it adds.",
+      "answer_relevancy_passed": false
+    },
+    {
+      "id": "policy-3",
+      "category": "policy_qa",
+      "actual_output": "Yes, an RBC term life policy can be converted to a permanent life insurance policy without the need to prove insurability again. The following conditions apply for the conversion:\n\n1. A written request for conversion must be submitted.\n2. All premiums must be paid up to the effective date of the conversion.\n3. The conversion must occur before the policy anniversary nearest the life insured's seventy-first (71st) birthday.\n4. If the coverage option is Joint First-to-die, the conversion for every life insured must occur before the policy anniversary nearest the oldest life insured's seventy-first (71st) birthday.\n5. The conversion cannot take place while premiums are being waived under a Waiver of Premium Benefit Rider, unless it occurs on the date the conversion privilege ends. In that case, the new policy will be the permanent plan with the lowest annual premium offered for conversion.\n6. If converting the full amount of the death benefit, the rider will end on the date the new policy takes effect under this conversion privilege.\n\nCited Sources: \n- RBC Term 100 Permanent Life Insurance (Specimen Policy), page 14\n- RBC Your Term Life Insurance - Riders, page 2\n- RBC Universal Life Insurance - Rider Package, page 42\n\nDisclaimer: This is general policy information and not a coverage guarantee or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "RBC term life policy conversion to permanent life insurance",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 14): You may convert all or part of the Death Benefit of this Rider to a permanent RBC Life Insurance Company Policy without evidence of insurability, subject to the following conditions: 1.   You must submit a written request for conversion to us. 2.   All Premiums are paid to the effective date of the conversion. 3.   The conversion must occur prior to the Policy Anniversary nearest the Life Insured's seventy-first (71st) birthday. If your Coverage Option for this Rider is Joint First-to-die, the conversion for every Life Insured must occur prior to the Policy Anniversary nearest the oldest Life Insured's seventy-first (71st) birthday. The date your Conversion Privilege expires is specified in the Policy Schedule. 4.   This Rider cannot be converted while Premiums are being waived under a Waiver of Premium Benefit Rider, unless the conversion takes place on the date your Conversion Privilege ends. In that event, the new Policy will be the permanent plan with the lowest annual Premium we offer you for conversion. 5.   If you are converting the full amount of the Death Benefit, this Rider will end on the date your new Policy takes effect under this Conversion Privilege.",
+        "RBC Your Term Life Insurance - Riders (page 2): You may convert all or part of the Death Benefit of this Rider to a permanent RBC Life Insurance Company Policy without evidence of insurability, subject to the following conditions: 1. You must submit a written request for conversion to us. 2. All Premiums are paid to the effective date of the conversion. 3. The conversion must occur prior to the Policy Anniversary nearest the Life lnsured's seventy-first (71 st) birthday. If your Coverage Option for this Rider is Joint First-to-die, the conversion for every Life Insured must occur prior to the Policy Anniversary nearest the oldest Life lnsured's seventy-first (71 st) birthday. The date your Conversion Privilege expires is specified in the Policy Schedule. 4. This Rider cannot be converted while Premiums are being waived under a Waiver of Premium Benefit Rider, unless the conversion takes place on the date your Conversion Privilege ends. In that event, the new Policy will be the permanent plan with the lowest annual Premium we offer you for conversion. 5. If you are converting the full amount of the Death Benefit, this Rider will end on the date your new Policy takes effect under this Conversion Privilege.",
+        "RBC Universal Life Insurance - Rider Package (page 42): You may convert all or part of the Death Benefit of this Rider to a permanent RBC Life Insurance Company Policy without evidence of insurability, subject to the following conditions: 1. You must submit a written request for conversion to us. 2. All Premiums are paid to the effective date of the conversion. 3. The conversion must occur prior to the Policy Anniversary nearest the Life Insured's seventy-first (71 st) birthday. If your Coverage Option for this Rider is Joint First-to-die, the conversion for every Life Insured must occur prior to the Policy Anniversary nearest the oldest Life Insured's seventy-first (71st) birthday. The date your Conversion Privilege expires is specified in the Policy Schedule. 4. This Rider cannot be converted while Premiums are being waived under a Waiver of Premium Benefit Rider, unless the conversion takes place on the date your Conversion Privilege ends. In that event, the new Policy will be the permanent plan with the lowest annual Premium we offer you for conversion. 5. If you are converting the full amount of the Death Benefit, this Rider will end on the date your new Policy takes effect under this Conversion Privilege."
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it faithful and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 1.0,
+      "answer_relevancy_reason": "The score is 1.00 because the answer appears fully relevant to the question about converting an RBC term life policy to permanent coverage and whether new proof of insurability is required, with no irrelevant statements noted. Nice, focused response.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "policy-4",
+      "category": "policy_qa",
+      "actual_output": "The search did not return specific information regarding the coverage of the Accidental Death and Dismemberment rider under the RBC Disability Income Protection policy in relation to unpaid premiums. Therefore, I cannot provide a definitive answer to your question.\n\nFor accurate information regarding coverage and the implications of unpaid premiums for this specific rider, I recommend reviewing the policy documents directly or contacting a licensed insurance agent for clarification. \n\nThis is general policy information and not a coverage guarantee or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "RBC Disability Income Protection policy Accidental Death and Dismemberment rider coverage unpaid premiums",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Disability Income Protection (Specimen Policy) (page 28): this coverage is a Disability Buy/Sell Insurance policy; this coverage is a Key Person Disability Insurance policy; this coverage is a Retirement Protector Insurance policy; or this coverage includes a Retirement Protector Rider. *You can designate a beneficiary or beneficiaries of your choice without restriction once your policy has been delivered to you by completing a Beneficiary Change form. Provincial amendments Page 29",
+        "RBC Universal Life Insurance (Specimen Policy) (page 41): this coverage is a Disability Buy/Sell Insurance policy; this coverage is a Key Person Disability Insurance policy; this coverage is a Retirement Protector Insurance policy; or this coverage includes a Retirement Protector Rider. *You can designate a beneficiary or beneficiaries of your choice without restriction once your policy has been delivered to you by completing a Beneficiary Change form. Provincial amendments Page 44",
+        "RBC Universal Life Insurance with Bonus Interest (Specimen Policy) (page 41): this coverage is a Disability Buy/Sell Insurance policy; this coverage is a Key Person Disability Insurance policy; this coverage is a Retirement Protector Insurance policy; or this coverage includes a Retirement Protector Rider. *You can designate a beneficiary or beneficiaries of your choice without restriction once your policy has been delivered to you by completing a Beneficiary Change form. Provincial amendments Page 44"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it accurate and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.6,
+      "answer_relevancy_reason": "The score is 0.60 because the answer was somewhat relevant to the question about coverage under the Accidental Death and Dismemberment rider when premiums have not been paid, but it included generic statements and a disclaimer that did not directly address that specific coverage condition. It is not higher because those irrelevant parts reduced the answer's focus, but it still merits this score since it appears to have at least partially addressed the core question.",
+      "answer_relevancy_passed": false
+    },
+    {
+      "id": "policy-5",
+      "category": "policy_qa",
+      "actual_output": "Under the RBC Universal Life policy's Disability Benefit, a Life Insured is considered disabled when they meet the specific criteria outlined in the policy. The details regarding what constitutes being disabled can be found in provision E 2 of the policy documents. \n\nThe Disability Benefit is payable if:\n1. Each sign or symptom of the insured disability first manifested while the policy was in force.\n2. If the signs or symptoms first manifested while the policy was not in force, all relevant information about such signs or symptoms must have been fully disclosed in the application for the policy or in writing before the coverage date or the last date of reinstatement of the policy.\n\nFor more detailed information, you may refer to the RBC Universal Life Insurance - Rider Package on page 20.\n\nThis is general policy information and not a coverage guarantee or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "RBC Universal Life policy Disability Benefit definition of disabled"
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Universal Life Insurance - Rider Package (page 20): disability and the end of the waiting period if applicable, for every Life Insured who is eligible for a Disability Benefit under this Policy. 3. You must specify the amount of any Disability Benefit payment when you make your written request. The amount of each benefit payment must be at least $500 and cannot exceed the Policy\u2019s Net Surrender Value on the day we process your claim, subject to the terms of provision G 2. The amount of the Disability Benefit will not be reduced by a Market Value Adjustment. 4. We will reduce your Policy\u2019s Accumulation Value by the amount of any Disability Benefit we pay to you using the order of withdrawal described in provision H 3. If your Disability Benefit payment is equal to the Net Surrender Value, and your Policy then fails to meet the Minimum Premium requirement described in provision F 10, your Policy is in default and your grace period begins. 5. If your Death Benefit Option is Level Protection, the payment of the Disability Benefit will be subject to the terms and conditions set out in provision H 4, except that the amount of the Disability Benefit will not be reduced by a Surrender Charge. E 2     When we consider a Life Insured disabled",
+        "RBC Universal Life Insurance - Rider Package (page 20): a) gggggggjjskhd     3.81 E     Your Disability Benefit E 1     Claiming a Disability Benefit If this benefit is included in your Policy, as specified in the Policy Schedule, you may claim a Disability Benefit when a Life Insured under this Policy becomes disabled, subject to the terms of provisions E 3 and E 4. The payment of the Disability Benefit will be subject to our administrative rules in effect at the time of your claim, and to the following conditions: 1. The Life Insured must be disabled as described under provision E 2. We will pay this Disability Benefit if: a) each sign or symptom of the insured disability was first manifest while this Policy was in force; or b) though first manifest while this Policy was not in force, all information about any such sign or symptom that was known or reasonably available to you or the Life Insured was fully and completely disclosed to us in the application for this Policy, or otherwise in writing, before the Coverage Date or before the last date of reinstatement of this Policy. 2. This benefit is payable to you only once in any twelve (12) month period, starting from the later of the onset of",
+        "RBC Universal Life Insurance with Bonus Interest (Specimen Policy) (page 20): disability and the end of the waiting period if applicable, for every Life Insured who is eligible for a Disability Benefit under this Policy. 3. You must specify the amount of any Disability Benefit payment when you make your written request. The amount of each benefit payment must be at least $500 and cannot exceed the Policy\u2019s Net Surrender Value on the day we process your claim, subject to the terms of provision G\u00a02. The amount of the Disability Benefit will not be reduced by a Market Value Adjustment. 4. We will reduce your Policy\u2019s Accumulation Value by the amount of any Disability Benefit we pay to you using the order of withdrawal described in provision H\u00a03. If your Disability Benefit payment is equal to the Net Surrender Value, and your Policy then fails to meet the Minimum Premium requirement described in provision F 10, your Policy is in default and your grace period begins. 5. If your Death Benefit Option is Level Protection, the payment of the Disability Benefit will be subject to the terms and conditions set out in provision H\u00a04, except that the amount of the Disability Benefit will not be reduced by a Surrender Charge. E 2 When we consider a Life Insured disabled"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job staying faithful to the source.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.8333333333333334,
+      "answer_relevancy_reason": "The score is 0.83 because the response mostly addressed what it means for a Life Insured to be considered disabled under the RBC Universal Life policy, but it included a disclaimer that was not relevant to explaining the policy definition, which keeps the score from being higher.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-1-low-risk",
+      "category": "applicant_assessment",
+      "actual_output": "Reasoning: \nChloe Bennett is a 22-year-old female with a BMI of 20.3, classified as a non-smoker, and has no declared health conditions. Her occupation as a Software Engineer falls under the Class 1 - Minimal risk category. Given these factors, she presents a low risk for life insurance underwriting. The risk calculator indicates a total score of 5, placing her in the \"Preferred\" risk tier, which typically results in favorable premium rates.\n\nFor the requested Term Life policy, the coverage is defined as insurance on the life of a single person, with the death benefit specified in the policy schedule. Since Chloe meets the age and health criteria for this type of policy, it is likely that her situation will be covered.\n\nRisk Tier: Preferred\n\nRecommendation: Approve the application for the Term Life policy with a coverage amount of $100,000.\n\nCited Sources: \n- RBC Your Term Life Insurance (Specimen Policy), page 3\n- RBC Term 100 Permanent Life Insurance (Specimen Policy), page 3\n\nDisclaimer: This assessment is based on the provided information and is not a final underwriting decision or legal advice.",
+      "tool_calls": [
+        {
+          "tool": "risk_calculator",
+          "args": {
+            "age": 22,
+            "bmi": 20.3,
+            "health_conditions": [
+              "None declared"
+            ],
+            "occupation_class": "Class 1 - Minimal",
+            "smoker": false
+          }
+        },
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Term Life coverage",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Your Term Life Insurance (Specimen Policy) (page 3): applicable to each Life Insured and use it to establish his or her Premium. It is specified in the Policy Schedule. Coverage means insurance on the life of a single person or jointly on the lives of several persons, under this Policy or under the terms of a Rider included with this Policy. Additional Coverage means any requested increase to the initial Death Benefit of this Policy that is approved after the Policy is issued, as described in provision C 2.1. Coverage Date means the first date Coverage is in force, as described in provision B\u00a01. Coverage Option means the option you elected for the payment of the Death Benefit. It is specified in the Policy Schedule. The Coverage Options that may be available under this Policy or any Term Rider are Single Life and Joint First-to-die. Death Benefit means the amount payable to the Beneficiary when the Designated Life Insured dies. The Death Benefit and insurance plan are specified in the Policy Schedule. Designated Life Insured under this Policy means the Life Insured on whose death the Death Benefit is payable. Your Coverage Option is specified in the Policy Schedule.",
+        "RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 3): either a Smoker or a Non-Smoker, and in either a Preferred or Standard Class. We determine the Class applicable to each Life Insured and use it to establish his or her Premium. It is specified in the Policy Schedule. Coverage means insurance on the life of a single person or jointly on the lives of several persons, under this Policy or under the terms of a Rider included with this Policy. Additional Coverage means any requested increase to the initial Death Benefit of this Policy that is approved after the Policy is issued, as described in provision C 2.1. Coverage Date means the first date Coverage is in force, subject to the terms of provision B 1. Coverage Option means the option you elected for the payment of the Death Benefit. It is specified in the Policy Schedule. The Coverage Options that may be available under this Policy or any Term Rider are Single Life, Joint First-to-die and Joint Last-to-die Death Benefit means the amount payable to the Beneficiary when the Designated Life Insured dies. The Death Benefit and insurance plan are specified in the Policy Schedule. Designated Life Insured under this Policy means the Life Insured on whose death the Death Benefit is payable.",
+        "RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 17): are most similar to the Class applicable under this insurance plan, as determined by us. The amount of insurance under the new insurance plan must meet the minimum for the Preferred Class at the time of exchange. Maximum Issue Ages and Term Length Max. age      Term length   Max. age      Term length   Max. age      Term length   Max. age      Term length 70 11-15 63 22 56 29 49 36 69 16 62 23 55 30 48 37 68 17 61 24 54 31 47 38 67 18 60 25 53 32 46 39 66 19 59 26 52 33 65 20 58 27 51 34 64 21 57 28 50 35 YOURTERMRIDENG 11.2025 Page 20 Specimen"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions listed, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it faithful and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.9047619047619048,
+      "answer_relevancy_reason": "The score is 0.90 because the response mostly addressed the applicant\u2019s underwriting risk tier and coverage likelihood, but it is not higher since it included irrelevant content: it cited a different policy type than the requested Term Life policy and added an unnecessary legal advice disclaimer.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-2-standard-risk",
+      "category": "applicant_assessment",
+      "actual_output": "Reasoning: \nDrew Lee is a 51-year-old male with a BMI of 25.6, classified as a non-smoker, and works as an accountant, which falls under the Class 1 - Minimal occupation category. He has declared a managed mental health condition. Based on the risk factors, the age and BMI contribute to the risk score, but the managed health condition is also a significant factor. The risk calculator has assessed Drew's overall risk score to be 35, placing him in the \"Standard\" risk tier with a premium loading of +10%. \n\nFor the requested Universal Life policy, I checked the relevant policy documents to confirm coverage details. The documents indicate that the insurance coverage begins on the Coverage Date, which is contingent upon the approval of the application and receipt of the initial premium. There are no specific exclusions mentioned that would prevent coverage for someone with a managed mental health condition, provided that the condition is stable and managed.\n\nRisk Tier: Standard\n\nRecommendation: Based on the assessment, Drew Lee is likely to be approved for the Universal Life policy with a standard risk tier and a +10% premium loading due to his managed health condition.\n\nCited Sources: \n- RBC Universal Life Insurance - Rider Package (page 12)\n- RBC Universal Life Insurance (Specimen Policy) (page 12)\n- RBC Universal Life Insurance (Specimen Policy) (page 6)\n\nDisclaimer: This assessment is based on the provided information and is not a final underwriting decision or legal advice.",
+      "tool_calls": [
+        {
+          "tool": "risk_calculator",
+          "args": {
+            "age": 51,
+            "bmi": 25.6,
+            "health_conditions": [
+              "Mental health condition (managed)"
+            ],
+            "occupation_class": "Class 1 - Minimal",
+            "smoker": false
+          }
+        },
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Universal Life coverage",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Universal Life Insurance - Rider Package (page 12): a) gggggggjjskhd     3.81 C     Your Life Insurance Coverage C 1     When your insurance begins Subject to any change in the insurability of any Life Insured, your insurance under this Policy begins on the Coverage Date. For Coverage included with this Policy when it is issued, the Coverage Date is the latest of: a) The Policy Date; b) The date you receive this contract; or, if you reside in Quebec, the date we approve your application without modification; c) The date we receive at our office all amendments, addendums and exclusions required for the Policy to take effect, signed by you; and d) The date your initial Premium is received at our office, subject to the terms and conditions of provision F 9. If your first Premium is not honoured, this Policy will not take effect. For each additional Coverage or Rider added to the Policy after the Policy Date, the Coverage Date is the Monthly Processing Day on which the Coverage became effective subject to the terms and conditions of this Policy. C 2     When your insurance ends Your insurance under this Policy ends on the earliest of the following dates: a) The date the Designated Life Insured dies;",
+        "RBC Universal Life Insurance (Specimen Policy) (page 12): Specimen C 1 When your insurance begins C Your Life Insurance Coverage Subject to any change in the insurability of any Life Insured, your insurance under this Policy begins on the Coverage Date. For Coverage included with this Policy when it is issued, the Coverage Date is the latest of: a) The Policy Date; b) The date you receive this contract; or, if you reside in Quebec, the date we approve your application without modification; c) The date we receive at our office all amendments, addendums and exclusions required for the Policy to take effect, signed by you; and d) The date your initial Premium is received at our office, subject to the terms and conditions of provision F\u00a09. If your first Premium is not honoured, this Policy will not take effect. For each additional Coverage or Rider added to the Policy after the Policy Date, the Coverage Date is the Monthly Processing Day on which the Coverage became effective subject to the terms and conditions of this Policy. C 2 When your insurance ends Your insurance under this Policy ends on the earliest of the following dates: a) The date the Designated Life Insured dies;",
+        "RBC Universal Life Insurance (Specimen Policy) (page 6): Classification of each of the Lives Insured under a Joint First-to-die or Joint Last-to-die Coverage Option, as determined by us. It is specified in the Policy Schedule. Level Target Premium means an amount determined by us based on the Cost of Insurance rates applicable to this policy, including any applicable Extra Premium. It is included in the Minimum Premium to cover the cost of the life insurance provided under this Policy, as described in provision F\u00a010. Life Insured means a person whose life is insured under this Policy, or under a Rider attached to this Policy. Every Life Insured is named in the Policy Schedule. RBCULNOBONUSENG 05.2013 Page 9"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions listed, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it faithful and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.9629629629629629,
+      "answer_relevancy_reason": "The score is 0.96 because the response appears to address the applicant\u2019s underwriting risk tier and likely coverage appropriately, but it is not higher due to including an irrelevant legal disclaimer that does not help evaluate underwriting risk or policy applicability.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-3-substandard-risk",
+      "category": "applicant_assessment",
+      "actual_output": "Reasoning: \nCasey Patel is a 24-year-old female with a BMI of 29.6, which classifies her as overweight. She has a managed mental health condition, which is a relevant health factor. Her occupation as a Delivery Rider falls under Class 4 - High, indicating a higher risk due to the nature of her job. She is a non-smoker, which is a positive factor. \n\nWhen assessing her risk, the following points were considered:\n- Age: 5 points\n- BMI: 10 points\n- Health condition: 10 points\n- Occupation: 30 points\n- Smoker: 0 points\n\nThis results in a total score of 55, placing her in the \"Substandard\" risk tier, with an approval decision that includes a premium loading of +50% to +100%.\n\nNext, I checked the coverage details for the requested Universal Life policy. The policy documents indicate that coverage begins on the Coverage Date, which is contingent upon the approval of the application and receipt of the initial premium. \n\nRisk Tier: Substandard (Approve with rating, +50% to +100% premium loading)\n\nRecommendation: Given the substandard risk tier, Casey can still obtain the Universal Life insurance, but she should be prepared for a higher premium due to the rating.\n\nCited Sources:\n1. RBC Universal Life Insurance - Rider Package, page 12\n2. RBC Universal Life Insurance (Specimen Policy), page 12\n3. RBC Universal Life Insurance (Specimen Policy), page 6\n\nDisclaimer: This assessment is based on the provided information and is not a final underwriting decision or legal advice.",
+      "tool_calls": [
+        {
+          "tool": "risk_calculator",
+          "args": {
+            "age": 24,
+            "bmi": 29.6,
+            "health_conditions": [
+              "Mental health condition (managed)"
+            ],
+            "occupation_class": "Class 4 - High",
+            "smoker": false
+          }
+        },
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Universal Life coverage",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Universal Life Insurance - Rider Package (page 12): a) gggggggjjskhd     3.81 C     Your Life Insurance Coverage C 1     When your insurance begins Subject to any change in the insurability of any Life Insured, your insurance under this Policy begins on the Coverage Date. For Coverage included with this Policy when it is issued, the Coverage Date is the latest of: a) The Policy Date; b) The date you receive this contract; or, if you reside in Quebec, the date we approve your application without modification; c) The date we receive at our office all amendments, addendums and exclusions required for the Policy to take effect, signed by you; and d) The date your initial Premium is received at our office, subject to the terms and conditions of provision F 9. If your first Premium is not honoured, this Policy will not take effect. For each additional Coverage or Rider added to the Policy after the Policy Date, the Coverage Date is the Monthly Processing Day on which the Coverage became effective subject to the terms and conditions of this Policy. C 2     When your insurance ends Your insurance under this Policy ends on the earliest of the following dates: a) The date the Designated Life Insured dies;",
+        "RBC Universal Life Insurance (Specimen Policy) (page 12): Specimen C 1 When your insurance begins C Your Life Insurance Coverage Subject to any change in the insurability of any Life Insured, your insurance under this Policy begins on the Coverage Date. For Coverage included with this Policy when it is issued, the Coverage Date is the latest of: a) The Policy Date; b) The date you receive this contract; or, if you reside in Quebec, the date we approve your application without modification; c) The date we receive at our office all amendments, addendums and exclusions required for the Policy to take effect, signed by you; and d) The date your initial Premium is received at our office, subject to the terms and conditions of provision F\u00a09. If your first Premium is not honoured, this Policy will not take effect. For each additional Coverage or Rider added to the Policy after the Policy Date, the Coverage Date is the Monthly Processing Day on which the Coverage became effective subject to the terms and conditions of this Policy. C 2 When your insurance ends Your insurance under this Policy ends on the earliest of the following dates: a) The date the Designated Life Insured dies;",
+        "RBC Universal Life Insurance (Specimen Policy) (page 6): Classification of each of the Lives Insured under a Joint First-to-die or Joint Last-to-die Coverage Option, as determined by us. It is specified in the Policy Schedule. Level Target Premium means an amount determined by us based on the Cost of Insurance rates applicable to this policy, including any applicable Extra Premium. It is included in the Minimum Premium to cover the cost of the life insurance provided under this Policy, as described in provision F\u00a010. Life Insured means a person whose life is insured under this Policy, or under a Rider attached to this Policy. Every Life Insured is named in the Policy Schedule. RBCULNOBONUSENG 05.2013 Page 9"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it accurate and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.96875,
+      "answer_relevancy_reason": "The score is 0.97 because the response appears to address the applicant\u2019s underwriting risk tier and likely coverage with relevant policy support, but it is not higher because it included an unnecessary legal advice disclaimer that does not help assess underwriting or coverage.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-4-high-risk",
+      "category": "applicant_assessment",
+      "actual_output": "**Reasoning:**  \nRiley Davis is a 67-year-old male with a BMI of 30.2, which classifies him as obese. He has declared two health conditions: a family history of heart disease and uncontrolled Type 2 Diabetes. These factors contribute significantly to his risk profile. His occupation as a teacher falls under Class 1 - Minimal, which is favorable. However, his age and health conditions lead to a higher risk score. The risk calculator indicates a total score of 120, placing him in the \"High Risk\" tier, with an approval decision that includes exclusions and a premium loading of +150%.\n\nFor the requested policy type, Accidental Death & Dismemberment (AD&D), the relevant policy documents indicate that there are specific exclusions related to sickness. According to the policy, benefits will not be paid for any loss that results directly or indirectly from any disease or sickness, which includes his uncontrolled diabetes. Therefore, while the policy may cover accidental injuries, it will not cover losses related to his health conditions.\n\n**Risk Tier:** High Risk\n\n**Recommendation:** Approve with exclusions; however, be aware that losses related to his health conditions (like diabetes) will not be covered under the AD&D policy.\n\n**Cited Sources:**  \n- RBC Disability Income Protection (Specimen Policy) (page 23): \"THERE IS NO COVERAGE UNDER THIS RIDER... All of the Words and Phrases used in the Policy and all the Exclusions, Limitations and other provisions of the Policy apply to this Rider unless amended by this Rider.\"\n- RBC Disability Income Protection (Specimen Policy) (page 14): \"We will not pay or provide benefits... for any loss that results, directly or indirectly, from any disease or sickness (including any medical or surgical treatment thereof).\"\n- RBC Disability Income Protection (Specimen Policy) (page 24): \"If Your body has not been found within one year of the disappearance... We will presume... that You suffered Loss of Life resulting from Injuries sustained in the Accident and covered under this Policy.\"\n\n**Disclaimer:** This assessment is based on the provided information and policy documents and does not constitute a final underwriting decision or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "risk_calculator",
+          "args": {
+            "age": 67,
+            "bmi": 30.2,
+            "health_conditions": [
+              "Family history - heart disease",
+              "Type 2 Diabetes (uncontrolled)"
+            ],
+            "occupation_class": "Class 1 - Minimal",
+            "smoker": false
+          }
+        },
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Accidental Death & Dismemberment",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Disability Income Protection (Specimen Policy) (page 23): Specimen Part 11 Accidental Death and Dismemberment Insurance Rider THERE IS NO COVERAGE UNDER THIS RIDER, UNLESS PREMIUM HAS BEEN PAID FOR IT AND IT IS SHOWN ON THE POLICY SCHEDULE. All of the Words and Phrases used in the Policy and all the Exclusions, Limitations and other provisions of the Policy apply to this Rider unless amended by this Rider. 11.01 Definitions Of Terms Used In This Rider Activities of Daily Living are: a) Bathing b) Dressing c) Eating d) Maintaining Continence e) Toileting f) Transferring Beneficiary means the person or persons designated by You to receive the benefit payable for loss of life under this Accidental Death and Dismemberment insurance. Benefit Schedule means the Benefit Schedule shown in this Rider. Child means Your child or Your Spouse\u2019s child, including any stepchild, adopted child or foster child who is unmarried and dependent on You for financial support and who is: a) at least fifteen (15) days of age and less than eighteen (18) years of age; or b) over eighteen (18) years of age but less than twenty-five (25) years of age if a full-time student attending an institution for higher learning; or",
+        "RBC Disability Income Protection (Specimen Policy) (page 14): Specimen Part 6 Exclusions and Limitations (APPLIES TO PARTS 1-5 AND PART 11 THE ACCIDENTAL DEATH AND DISMEMBERMENT INSURANCE RIDER) IMPORTANT \u2013 PLEASE REVIEW CAREFULLY EXCLUSIONS 6.01 Sickness Exclusion \u2013 Parts 4 and 11 We will not pay or provide benefits under Part 4 (Accident Medical Emergency Reimbursement Benefit) or Part 11 (Accidental Death and Dismemberment Rider) for any loss that results, directly or indirectly, from any disease or sickness (including any medical or surgical treatment thereof). However, this exclusion does not apply to a loss covered by this Policy that results directly from a septic infection introduced through a wound Accidentally sustained. 6.02 Sickness Exclusion \u2013 Parts 3 and 4 If You or the Policy Owner have not purchased coverage for Disability due to Illness under Part 3 (Loss of Income Benefit) or under Part 5 (Business Overhead Expense Benefit), We will not pay or provide benefits under that Part, or waive premiums for any period of Disability that results, directly or indirectly, from any disease or sickness (including any medical or surgical treatment thereof). However, this exclusion does not apply to a period of",
+        "RBC Disability Income Protection (Specimen Policy) (page 24): Loss resulting from unavoidable exposure to the elements will be treated like those resulting from any other Accidental Injury. If Your body has not been found within one year of the disappearance, stranding, sinking or wrecking of the conveyance in which You were riding at the time of the Accident, We will presume, subject to all other conditions of the Policy, that You suffered Loss of Life resulting from Injuries sustained in the Accident and covered under this Policy. 11.04 Payment of Loss of Life Benefit and Beneficiary Designation If the Loss of Life benefit is payable, We will pay it to Your estate, unless You filed a beneficiary designation with Us. You may change Your beneficiary designation by written request. Any beneficiary designation will not be effective until has been recorded at Our office. SUPPLEMENTARY BENEFITS 11.05 Education Benefit In the event of Your death which results in benefits being payable for Loss of Life in accordance with the Benefit FSDI ENG 03.2015 Page 25"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job keeping it accurate and aligned.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 1.0,
+      "answer_relevancy_reason": "The score is 1.00 because the response stayed fully focused on assessing the applicant\u2019s underwriting risk tier and AD&D coverage using the relevant policy documents, with no irrelevant statements. Strong, directly on-topic answer.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-5-decline",
+      "category": "applicant_assessment",
+      "actual_output": "Reasoning: \nThe applicant, Marcus Webb, is 58 years old, has a BMI of 39.8, is a smoker, and has uncontrolled Type 2 Diabetes and Hypertension. His occupation as an Offshore Oil Rig Worker falls into Class 5 - Hazardous. Each of these factors contributes to a higher risk assessment. The risk calculator indicates a total score of 220, which places him in the \"Decline\" risk tier. This means that based on the underwriting criteria, he is not eligible for coverage under the requested Term Life policy.\n\nRisk Tier: Decline\n\nRecommendation: Given the risk assessment, it is recommended that Marcus Webb seek alternative insurance options or consider improving his health conditions before reapplying for coverage.\n\nCited Sources: \n- RBC Your Term Life Insurance (Specimen Policy) (page 3)\n- RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 3)\n- RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 17)\n\nDisclaimer: This assessment is based on the provided information and underwriting criteria, and does not constitute a final underwriting decision or professional advice.",
+      "tool_calls": [
+        {
+          "tool": "risk_calculator",
+          "args": {
+            "age": 58,
+            "bmi": 39.8,
+            "health_conditions": [
+              "Type 2 Diabetes (uncontrolled)",
+              "Hypertension (uncontrolled)"
+            ],
+            "occupation_class": "Class 5 - Hazardous",
+            "smoker": true
+          }
+        },
+        {
+          "tool": "policy_lookup",
+          "args": {
+            "query": "Term Life coverage",
+            "k": 3
+          }
+        }
+      ],
+      "retrieval_context": [
+        "RBC Your Term Life Insurance (Specimen Policy) (page 3): applicable to each Life Insured and use it to establish his or her Premium. It is specified in the Policy Schedule. Coverage means insurance on the life of a single person or jointly on the lives of several persons, under this Policy or under the terms of a Rider included with this Policy. Additional Coverage means any requested increase to the initial Death Benefit of this Policy that is approved after the Policy is issued, as described in provision C 2.1. Coverage Date means the first date Coverage is in force, as described in provision B\u00a01. Coverage Option means the option you elected for the payment of the Death Benefit. It is specified in the Policy Schedule. The Coverage Options that may be available under this Policy or any Term Rider are Single Life and Joint First-to-die. Death Benefit means the amount payable to the Beneficiary when the Designated Life Insured dies. The Death Benefit and insurance plan are specified in the Policy Schedule. Designated Life Insured under this Policy means the Life Insured on whose death the Death Benefit is payable. Your Coverage Option is specified in the Policy Schedule.",
+        "RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 3): either a Smoker or a Non-Smoker, and in either a Preferred or Standard Class. We determine the Class applicable to each Life Insured and use it to establish his or her Premium. It is specified in the Policy Schedule. Coverage means insurance on the life of a single person or jointly on the lives of several persons, under this Policy or under the terms of a Rider included with this Policy. Additional Coverage means any requested increase to the initial Death Benefit of this Policy that is approved after the Policy is issued, as described in provision C 2.1. Coverage Date means the first date Coverage is in force, subject to the terms of provision B 1. Coverage Option means the option you elected for the payment of the Death Benefit. It is specified in the Policy Schedule. The Coverage Options that may be available under this Policy or any Term Rider are Single Life, Joint First-to-die and Joint Last-to-die Death Benefit means the amount payable to the Beneficiary when the Designated Life Insured dies. The Death Benefit and insurance plan are specified in the Policy Schedule. Designated Life Insured under this Policy means the Life Insured on whose death the Death Benefit is payable.",
+        "RBC Term 100 Permanent Life Insurance (Specimen Policy) (page 17): are most similar to the Class applicable under this insurance plan, as determined by us. The amount of insurance under the new insurance plan must meet the minimum for the Preferred Class at the time of exchange. Maximum Issue Ages and Term Length Max. age      Term length   Max. age      Term length   Max. age      Term length   Max. age      Term length 70 11-15 63 22 56 29 49 36 69 16 62 23 55 30 48 37 68 17 61 24 54 31 47 38 67 18 60 25 53 32 46 39 66 19 59 26 52 33 65 20 58 27 51 34 64 21 57 28 50 35 YOURTERMRIDENG 11.2025 Page 20 Specimen"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job staying faithful to the source.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 0.9,
+      "answer_relevancy_reason": "The score is 0.90 because the response appears to address the applicant\u2019s underwriting risk and coverage question with relevant policy support, but it is not higher because it cites a Term 100 Permanent Life Insurance policy instead of the requested Term Life policy, which weakens the policy-specific relevance.",
+      "answer_relevancy_passed": true
+    },
+    {
+      "id": "applicant-6-missing-field",
+      "category": "applicant_assessment",
+      "actual_output": "To proceed with the assessment, I need to clarify the missing BMI value for the applicant. Could you please provide Grace Owusu's BMI or her weight in kilograms so I can calculate it?",
+      "tool_calls": [],
+      "retrieval_context": [
+        "RBC Critical Illness Insurance Plan (Sample Policy) (page 12): Specimen Section 4.0: General Provisions Coverage Taking Effect The effective date for this policy is shown on the Schedule of Benefits and Premiums. Coverage under this policy will take effect on the effective date, but only if and when: this policy has been delivered to you; and any and all conditions for delivery to you have been satisfied completely; and there has been no change in the insured\u2019s insurability between the date of the application and the later of the date this policy was delivered to you and the date that any and all conditions for delivery to you were satisfied. Incontestability We have the right to contest the validity of this policy, or the payment of the critical illness benefit or any other benefits under this policy, if you or the insured under this policy have incorrectly stated, misrepresented or failed to disclose a material fact in the application for insurance, or on any medical examination, or in any written or electronic statements or answers provided as evidence of insurability. A material fact is a fact that would affect our decision to issue this policy or the conditions under which we are willing",
+        "RBC Disability Income Protection (Specimen Policy) (page 15): Specimen vi. any type of opportunistic infection or sickness if You had Acquired Immune Deficiency Syndrome (AIDS) and/or had tested positive for Human Immunodeficiency Virus (HIV or any subtypes) or had symptoms of the above which were diagnosed or Manifested themselves prior to the applicable Effective Date; vii. any subjective condition, including, but not limited to, chronic fatigue syndrome, chronic pain syndrome, fibromyalgia, Epstein Barr syndrome, fibrositis, environmental illness, multiple chemical sensitivity or any other syndrome of condition characterized predominantly by symptoms that cannot be confirmed with objective medical tests; viii. any psychiatric, psychological, emotional, behavioural or nervous disorder, including but not limited to, depression, anxiety, stress, or burnout, or any disorder related to substance abuse or dependency; ix. service in the armed forces, the reserves, or any other military organization. 6.04 Exclusions for Named Exclusions We will not pay or provide benefits, nor will we waive any premiums under this Policy or Rider for any period of",
+        "RBC Disability Income Protection (Specimen Policy) (page 17): (including information from Your present and past Physicians and Health Care Practitioners); d) Being interviewed by one of Our representatives by telephone or in person (if We ask You to); and e) Attending and participating in any examinations or assessments by any Physician or Health Care Practitioner that We may choose. During a claim, We may ask You to provide updated proof in one or more of the ways described above. If We do, You must provide the requested documents or information within thirty (30) days. If it is impossible to provide the requested proof within thirty (30) days, You must provide it as soon as reasonably possible. If You do not provide the documents or information that We ask for within the time required, We can stop paying the benefit. These requirements for proof of claim will continue even if there has been a breach of the terms of Your Policy. 7.04 Incontestability. If You made inaccurate statements when You applied for a coverage under this Policy (or when You applied to reinstate a coverage under this Policy), We may use these statements to contest the validity of that"
+      ],
+      "faithfulness_score": 1.0,
+      "faithfulness_reason": "The score is 1.00 because there are no contradictions, so the actual output appears fully consistent with the retrieval context\u2014great job staying faithful to the source.",
+      "faithfulness_passed": true,
+      "answer_relevancy_score": 1.0,
+      "answer_relevancy_reason": "The score is 1.00 because the response appears fully relevant to the applicant underwriting and policy coverage assessment, with no irrelevant statements noted. It directly addresses the input cleanly and appropriately.",
+      "answer_relevancy_passed": true
+    }
+  ]
+}

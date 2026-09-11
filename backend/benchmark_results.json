@@ -1,0 +1,80 @@
+{
+  "summary": {
+    "manual_review_minutes_assumed": 20,
+    "manual_review_breakdown_minutes": {
+      "read_application_and_history": 3,
+      "cross_reference_underwriting_criteria_tables": 5,
+      "locate_and_read_relevant_policy_sections": 7,
+      "write_up_decision_and_rationale": 5
+    },
+    "ai_assisted_seconds_mean": 4.29,
+    "ai_assisted_seconds_median": 4.25,
+    "ai_assisted_seconds_p95": 4.59,
+    "num_full_assessment_cases": 10,
+    "efficiency_gain_pct": 99.6
+  },
+  "full_runs": [
+    {
+      "applicant_id": "APP-EDGE-08",
+      "elapsed_seconds": 4.06,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-012",
+      "elapsed_seconds": 4.44,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-014",
+      "elapsed_seconds": 4.59,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-010",
+      "elapsed_seconds": 4.78,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-EDGE-01",
+      "elapsed_seconds": 4.03,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-016",
+      "elapsed_seconds": 4.3,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-009",
+      "elapsed_seconds": 3.91,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-013",
+      "elapsed_seconds": 4.18,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-EDGE-06",
+      "elapsed_seconds": 4.21,
+      "num_tool_calls": 2
+    },
+    {
+      "applicant_id": "APP-007",
+      "elapsed_seconds": 4.38,
+      "num_tool_calls": 2
+    }
+  ],
+  "edge_case_runs": [
+    {
+      "applicant_id": "APP-EDGE-04",
+      "elapsed_seconds": 2.34,
+      "num_tool_calls": 0
+    },
+    {
+      "applicant_id": "APP-EDGE-05",
+      "elapsed_seconds": 2.8,
+      "num_tool_calls": 2
+    }
+  ]
+}

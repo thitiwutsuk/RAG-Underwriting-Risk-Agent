@@ -1,0 +1,34 @@
+# Render Blueprint for the FastAPI backend. See DEPLOYMENT.md for the full
+# walkthrough (this file alone is not enough -- OPENAI_API_KEY has no value
+# here on purpose and must be set in the Render dashboard).
+#
+# Usage: in the Render dashboard, New -> Blueprint -> point at this repo
+# (must stay private, see README.md). Render reads this file from the repo
+# root and provisions the service below.
+services:
+  - type: web
+    name: rag-underwriting-backend
+    runtime: python
+    plan: free # swap to a paid plan if the free instance's spin-down/RAM limits are a problem -- see DEPLOYMENT.md
+    rootDir: backend
+    # Build: install deps, THEN fetch the real specimen policy PDFs (gitignored,
+    # never committed -- see backend/data/README.md) and rebuild the ChromaDB
+    # collection from them. Skipping either step means policy_lookup has an
+    # empty/missing collection to search and every RAG-grounded answer breaks.
+    buildCommand: >-
+      pip install -r requirements.txt &&
+      python scripts/download_real_policies.py &&
+      python ingest.py
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.16
+      - key: OPENAI_API_KEY
+        sync: false # set manually in the Render dashboard -- never commit this
+      - key: AGENT_MODEL
+        value: gpt-4o-mini
+      - key: FRONTEND_ORIGIN
+        sync: false # set to the deployed Vercel URL once the frontend is deployed, e.g. https://your-app.vercel.app
+      - key: HF_TOKEN
+        sync: false # optional -- only needed if sentence-transformers hits HuggingFace Hub rate limits during build
+    healthCheckPath: /health

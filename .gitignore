@@ -1,0 +1,30 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.deepeval/
+
+# Env
+.env
+.env.local
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Vector store / data artifacts
+backend/chroma_db/
+backend/*.sqlite3
+
+# Real copyrighted specimen policy PDFs (RBC Insurance) -- never commit these.
+# Re-download with scripts/download_real_policies.py. See backend/data/README.md.
+backend/data/policies/*.pdf
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

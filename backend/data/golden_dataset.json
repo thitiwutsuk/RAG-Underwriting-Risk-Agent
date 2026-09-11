@@ -1,0 +1,74 @@
+[
+  {
+    "id": "policy-1",
+    "category": "policy_qa",
+    "question": "What is the waiting/survival period before a critical illness claim is payable under the RBC Critical Illness Insurance Plan?",
+    "retrieval_query": "waiting period survival period critical illness claim payable",
+    "expected_output": "Under the RBC Critical Illness Insurance Plan (Sample Policy), the survival period for all covered critical illnesses is thirty (30) days: the insured must survive that many consecutive days following the diagnosis or medical procedure before the benefit becomes payable, unless a specific condition states otherwise (source: rbc_critical_illness.pdf, page 4)."
+  },
+  {
+    "id": "policy-2",
+    "category": "policy_qa",
+    "question": "What BMI range counts as Obese Class I in the underwriting criteria, and how many risk points does it add?",
+    "retrieval_query": "BMI Obese Class I risk points underwriting criteria",
+    "expected_output": "Obese Class I covers a BMI from 30.0 to 34.9 and adds 25 risk points, per the BMI sheet of the underwriting criteria workbook (source: underwriting_criteria.xlsx, BMI sheet)."
+  },
+  {
+    "id": "policy-3",
+    "category": "policy_qa",
+    "question": "Can an RBC term life policy be converted to a permanent life insurance policy, and does the applicant need to prove insurability again?",
+    "retrieval_query": "convert term life policy to permanent policy evidence of insurability",
+    "expected_output": "Yes. Under the RBC Term Life / Term 100 conversion privilege, the policyholder may convert all or part of the Death Benefit to a permanent RBC Life Insurance Company policy without evidence of insurability, subject to conditions such as submitting a written conversion request before the privilege expires (around the policy anniversary nearest the life insured's 71st birthday), and the policy cannot be converted while premiums are being waived (sources: t100-policy.pdf page 14, your-term-rider.pdf page 2, rbc_term_life.pdf page 10)."
+  },
+  {
+    "id": "policy-4",
+    "category": "policy_qa",
+    "question": "Under the RBC Disability Income Protection policy's Accidental Death and Dismemberment rider, is there any coverage if the applicant hasn't paid premiums for that rider?",
+    "retrieval_query": "accidental death and dismemberment rider exclusions no coverage premium",
+    "expected_output": "No. The Accidental Death and Dismemberment Insurance Rider (Part 11) of the RBC Disability Income Protection policy explicitly states there is no coverage under the rider unless premium has been paid for it and it is shown on the Policy Schedule; the policy also carries a general sickness exclusion for Parts 4 and 11 (source: rbc_disability_income.pdf, pages 14 and 23)."
+  },
+  {
+    "id": "policy-5",
+    "category": "policy_qa",
+    "question": "Under an RBC Universal Life policy's Disability Benefit, what does it mean for a Life Insured to be considered disabled?",
+    "retrieval_query": "universal life disability benefit occupationally disabled presumptively disabled functionally disabled terminally ill",
+    "expected_output": "Under the RBC Universal Life Insurance Disability Benefit, a Life Insured is considered disabled when they are occupationally disabled, presumptively disabled, functionally disabled, or terminally ill, as defined in the policy (sources: rbc-ul-policy.pdf and rbc-ul-policy-bonus.pdf, page 20).",
+    "notes": "Also present near-identically in ul-rider-package.pdf, page 20."
+  },
+  {
+    "id": "applicant-1-low-risk",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-EDGE-08",
+    "expected_output": "Chloe Bennett is a 22-year-old non-smoking female software engineer (Class 1 - Minimal occupation, 0 points), BMI 20.3 (Normal, 0 points), no declared health conditions (0 points). Age band 18-25 adds 5 points. Total risk_calculator score = 5, which falls in the Preferred tier (score 0-20), decision Approve with 0% premium loading. The agent should call risk_calculator and policy_lookup, and cite real RBC Term Life policy sources when discussing coverage for the requested Term Life policy."
+  },
+  {
+    "id": "applicant-2-standard-risk",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-012",
+    "expected_output": "Drew Lee is a 51-year-old non-smoking male accountant (Class 1 - Minimal occupation, 0 points), BMI 25.6 (Overweight, 10 points), with a managed mental health condition (10 points). Age band 46-55 adds 15 points. Total risk_calculator score = 35, which falls in the Standard tier (score 21-50), decision Approve with +10% premium loading. The agent should call risk_calculator and policy_lookup, and cite real RBC Universal Life policy sources for the requested Universal Life policy."
+  },
+  {
+    "id": "applicant-3-substandard-risk",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-014",
+    "expected_output": "Casey Patel is a 24-year-old non-smoking female delivery rider (Class 4 - High occupation, 30 points), BMI 29.6 (Overweight, 10 points), with a managed mental health condition (10 points). Age band 18-25 adds 5 points. Total risk_calculator score = 55, which falls in the Substandard tier (score 51-90), decision Approve with rating and +50% to +100% premium loading. The agent should call risk_calculator and policy_lookup, and cite real RBC Universal Life policy sources for the requested Universal Life policy."
+  },
+  {
+    "id": "applicant-4-high-risk",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-010",
+    "expected_output": "Riley Davis is a 67-year-old non-smoking male teacher (Class 1 - Minimal occupation, 0 points), BMI 30.2 (Obese Class I, 25 points), with two declared health conditions -- Type 2 Diabetes (uncontrolled, 45 points) and family history of heart disease (10 points) -- of which only the single highest-scoring condition (45) counts, not the sum. Age band 66-75 adds 50 points. Total risk_calculator score = 120, which falls in the High Risk tier (score 91-130), decision Approve with exclusions and +150% premium loading. The agent should call risk_calculator and policy_lookup, and cite real RBC Accidental Death & Dismemberment policy sources for the requested policy."
+  },
+  {
+    "id": "applicant-5-decline",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-EDGE-01",
+    "expected_output": "Marcus Webb is a 58-year-old smoking male offshore oil rig worker (Class 5 - Hazardous occupation, 60 points; current smoker, 40 points), BMI 39.8 (Obese Class II, 45 points), with uncontrolled Type 2 Diabetes and uncontrolled Hypertension declared (highest-scoring condition counts once: 45 points). Age band 56-65 adds 30 points. Total risk_calculator score = 220, which falls in the Decline tier (score 131+), decision Decline. The agent should call risk_calculator and policy_lookup, cite real RBC Term Life policy sources, and clearly recommend declining the requested Term Life policy rather than approving it."
+  },
+  {
+    "id": "applicant-6-missing-field",
+    "category": "applicant_assessment",
+    "applicant_id": "APP-EDGE-04",
+    "expected_output": "Grace Owusu's weight and BMI were not provided, and BMI is a required input for risk_calculator. The agent should not guess or assume a BMI value (e.g. treating it as 0) -- it should ask a clarifying question requesting the applicant's height/weight or BMI directly before calling risk_calculator, and should not state a risk tier or final decision until that information is supplied."
+  }
+]
