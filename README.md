@@ -27,9 +27,7 @@
 
 ## Demo
 
-| Assessment result (light) | Applicant form (dark) |
-|---|---|
-| ![Assessment result showing risk tier, reasoning, and cited policy sources](./docs/screenshots/assessment-light.png) | ![Applicant form in dark mode](./docs/screenshots/form-dark.png) |
+![Assessment result showing risk tier, reasoning, and cited policy sources](./docs/screenshots/assessment-light.png)
 
 - Not deployed yet — see [Deployment](#deployment) for the plan and [DEPLOYMENT.md](./DEPLOYMENT.md) for the steps.
 - Run it locally: backend `uvicorn main:app` (from `backend/`), frontend `npm run dev` (from `frontend/`) — see `.env.example` for required env vars.
