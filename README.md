@@ -62,27 +62,43 @@
 
 ```mermaid
 flowchart LR
-    subgraph Ingestion
-        PDF[Policy PDFs] --> Ingest[ingest.py]
-        XLS[Underwriting Excel] --> Ingest
-        Ingest --> Chroma[(ChromaDB)]
+    classDef data fill:#F5E6CA,stroke:#B8860B,color:#333,stroke-width:1px
+    classDef io fill:#D6E4F0,stroke:#4A6FA5,color:#1a1a2e,stroke-width:1px
+    classDef pipeline fill:#C9DDF2,stroke:#2C5F8A,color:#1a1a2e,stroke-width:2px
+    classDef guard fill:#F5DEB3,stroke:#B8860B,color:#333,stroke-width:1px
+    classDef output fill:#C9E4CA,stroke:#4A7C59,color:#1a1a2e,stroke-width:1px
+
+    subgraph Ingestion["Data Ingestion"]
+        PDF[Policy PDFs]:::data
+        XLS[Underwriting Excel]:::data
+        Ingest[ingest.py]:::data
+        Chroma[(ChromaDB)]:::data
+        PDF --> Ingest
+        XLS --> Ingest
+        Ingest --> Chroma
     end
 
-    subgraph Runtime
-        UI[Next.js Frontend] --> API[FastAPI /assess]
-        API --> InGuard[Input Guardrail<br/>prompt-injection check]
-        InGuard --> Agent[LangGraph Agent]
-        Agent --> RiskCalc[risk_calculator]
-        Agent --> Lookup[policy_lookup]
-        RiskCalc -.reads.-> XLS
-        Lookup -.queries.-> Chroma
-        Agent --> OutGuard[Output Guardrail<br/>disclaimer check]
-        OutGuard --> API
-        API --> UI
+    subgraph Runtime["Agent Runtime"]
+        UI[Next.js Frontend]:::io
+        API[FastAPI /assess]:::io
+        InGuard[Input Guardrail<br/>prompt-injection check]:::guard
+        Agent[LangGraph Agent]:::pipeline
+        RiskCalc[risk_calculator]:::pipeline
+        Lookup[policy_lookup]:::pipeline
+        OutGuard[Output Guardrail<br/>disclaimer check]:::guard
+
+        UI --> API --> InGuard --> Agent
+        Agent --> RiskCalc
+        Agent --> Lookup
+        Agent --> OutGuard --> API
     end
 
-    API -.-> Eval[DeepEval Evaluation<br/>+ Latency Benchmark]
+    RiskCalc -.reads.-> XLS
+    Lookup -.queries.-> Chroma
+    API -.-> Eval[DeepEval Evaluation<br/>+ Latency Benchmark]:::output
 ```
+
+*Solid arrows = request/response flow. Dashed arrows = read-only reference (no state change).*
 
 1. **Data Ingestion** (`ingest.py`)
    - Parses Excel + PDF sources, chunks and embeds into ChromaDB.
