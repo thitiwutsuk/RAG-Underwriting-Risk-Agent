@@ -24,7 +24,10 @@ POLICY_DIR = "data/policies"
 EXCEL_PATH = "data/underwriting_criteria.xlsx"
 CHROMA_PERSIST_DIR = "chroma_db"
 COLLECTION_NAME = "underwriting_knowledge_base"
-EMBEDDING_MODEL_NAME = "BAAI/bge-m3"
+# Lightweight embedding model -- fits comfortably in Render's free-tier 512MB
+# RAM limit (BAAI/bge-m3 does not; it OOM'd the deployed backend, see
+# DEPLOYMENT.md / PLAN.md). all-MiniLM-L6-v2 is ~80MB vs. bge-m3's ~2GB.
+EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 MAX_CHUNK_CHARS = 1200
 
 # Human-readable product names for each real specimen PDF, used in citations.

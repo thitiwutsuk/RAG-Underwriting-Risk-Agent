@@ -11,6 +11,7 @@ Covers deploying the backend (FastAPI) to Render and the frontend (Next.js) to V
 - OpenAI API key with billing enabled — the agent calls the OpenAI API on every `/assess` request.
 - Local sanity check before deploying: `cd backend && source venv/bin/activate && python -m pytest -q` (30/30 as of this writing).
 - Free-tier specifics (spin-down, RAM/CPU limits, build minutes) change often — check current pricing pages if a limit matters. One stable fact worth planning around: Render's free web services spin down after inactivity and take a noticeable cold start (tens of seconds) on the next request — hit `/health` before a demo.
+- **RAM matters here.** Render's free web service has 512MB RAM. The embedding model used for `policy_lookup` (`EMBEDDING_MODEL_NAME` in `backend/ingest.py`) is deliberately kept lightweight (`sentence-transformers/all-MiniLM-L6-v2`, ~80MB) specifically because it fits — an earlier attempt with `BAAI/bge-m3` (a much larger multilingual model, ~2GB) OOM'd the deployed service with "Ran out of memory (used over 512MB) while running your code." If you ever swap the embedding model, re-check this before deploying to the free tier.
 
 ## (b) Backend deploy — Render
 
