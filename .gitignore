@@ -28,3 +28,4 @@ backend/data/policies/*.pdf
 # Editor
 .vscode/
 .idea/
+.vercel

@@ -16,7 +16,6 @@ export default function ThemeToggle() {
     // Read the real theme only after mount -- the server has no access to the
     // .dark class the inline init script (layout.tsx) sets before hydration,
     // so the client's first render must start from the same `null` placeholder.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(readStoredTheme());
   }, []);
 
