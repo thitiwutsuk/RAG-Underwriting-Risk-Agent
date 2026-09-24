@@ -1,12 +1,11 @@
-# Deployment Guide (Phase 4)
+9hv'dki# Deployment Guide (Phase 4)
 
 Covers deploying the backend (FastAPI) to Render and the frontend (Next.js) to Vercel. Documents steps and config only — deploying requires your own Render, Vercel, and OpenAI accounts.
 
 ## (a) Prerequisites
 
-- GitHub account with this repo pushed to a **private** repository.
-  - `backend/data/policies/*.pdf` are real copyrighted RBC Insurance specimen documents (see `backend/data/README.md`). Gitignored, never in git history — but the repo must stay private regardless (see README.md).
-  - Render, Railway, and Vercel all deploy from private repos, so this doesn't block deployment.
+- GitHub account with this repo pushed (public or private — both work; Render/Vercel deploy from either).
+  - `backend/data/policies/*.pdf` are real RBC Insurance specimen documents, credited in `backend/data/README.md`; gitignored and never in git history either way.
 - [Render](https://render.com) account (backend, free tier used here).
 - [Vercel](https://vercel.com) account (frontend, free/Hobby tier used here).
 - OpenAI API key with billing enabled — the agent calls the OpenAI API on every `/assess` request.

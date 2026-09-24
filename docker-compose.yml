@@ -1,0 +1,47 @@
+# Local dev/demo stack: backend + Prometheus (metrics) + Grafana (dashboard).
+# Everything here is free/self-hosted -- no paid services required.
+#
+# Run: docker compose up --build
+# Backend:    http://localhost:8000  (docs at /docs, metrics at /metrics)
+# Prometheus: http://localhost:9090
+# Grafana:    http://localhost:3001  (default login admin/admin, dashboard
+#             "RAG Underwriting Agent - Overview" is auto-provisioned)
+#
+# LangFuse tracing (optional): put LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY
+# in .env at the repo root (a free https://cloud.langfuse.com account) --
+# picked up automatically via env_file, no compose changes needed.
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - FRONTEND_ORIGIN=http://localhost:3000
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - backend
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus

@@ -1,0 +1,108 @@
+{
+  "title": "RAG Underwriting Agent - Overview",
+  "uid": "rag-underwriting-overview",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Request rate (/assess and /health)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total[1m])) by (handler)",
+          "legendFormat": "{{handler}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Request latency (p95)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, handler))",
+          "legendFormat": "p95 {{handler}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Agent tool calls (risk_calculator vs policy_lookup)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(agent_tool_calls_total[5m])) by (tool)",
+          "legendFormat": "{{tool}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Guardrail rejections (by field)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(guardrail_rejections_total[5m])) by (field)",
+          "legendFormat": "{{field}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Assessment errors (502s) - total",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 16 },
+      "targets": [
+        { "expr": "sum(assessment_errors_total)", "refId": "A" }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Guardrail rejections - total",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 16 },
+      "targets": [
+        { "expr": "sum(guardrail_rejections_total)", "refId": "A" }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Total /assess requests",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 16 },
+      "targets": [
+        { "expr": "sum(http_requests_total{handler=\"/assess\"})", "refId": "A" }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Total tool calls",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "Prometheus" },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 16 },
+      "targets": [
+        { "expr": "sum(agent_tool_calls_total)", "refId": "A" }
+      ]
+    }
+  ]
+}

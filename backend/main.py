@@ -4,12 +4,29 @@ import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import Counter
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel, Field
 
 from agent import run_assessment
 from guardrails import INJECTION_CHECKED_FIELDS, ensure_disclaimer, find_prompt_injection
 
 app = FastAPI(title="RAG-Powered Decision Assistant")
+
+# Request count + latency histograms are added automatically by Instrumentator
+# (exposed at GET /metrics for Prometheus to scrape). These three counters add
+# the metrics that are specific to what this app actually does.
+GUARDRAIL_REJECTIONS = Counter(
+    "guardrail_rejections_total", "Requests rejected by the input guardrail", ["field"]
+)
+AGENT_TOOL_CALLS = Counter(
+    "agent_tool_calls_total", "Tool calls made by the agent", ["tool"]
+)
+ASSESSMENT_ERRORS = Counter(
+    "assessment_errors_total", "POST /assess requests that failed with a 502"
+)
+
+Instrumentator().instrument(app).expose(app)
 
 # Comma-separated list of allowed frontend origins, e.g.
 # "https://my-app.vercel.app,http://localhost:3000". Defaults to the local
@@ -86,6 +103,7 @@ def assess(request: AssessRequest) -> AssessResponse:
     for field in INJECTION_CHECKED_FIELDS:
         match = find_prompt_injection(getattr(request.applicant, field))
         if match:
+            GUARDRAIL_REJECTIONS.labels(field=field).inc()
             raise HTTPException(
                 status_code=422,
                 detail=f"Input rejected: '{field}' contains a disallowed instruction-like phrase ({match!r}).",
@@ -95,7 +113,11 @@ def assess(request: AssessRequest) -> AssessResponse:
     try:
         result = run_assessment(session_id=request.session_id, message=message)
     except Exception as exc:  # noqa: BLE001 - surface agent/tool failures as a 502
+        ASSESSMENT_ERRORS.inc()
         raise HTTPException(status_code=502, detail=f"Assessment failed: {exc}") from exc
+
+    for call in result["tool_calls"]:
+        AGENT_TOOL_CALLS.labels(tool=call["tool"]).inc()
 
     return AssessResponse(
         session_id=result["session_id"],

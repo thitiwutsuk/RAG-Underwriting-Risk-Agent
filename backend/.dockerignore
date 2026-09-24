@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.deepeval/
+chroma_db/
+data/policies/*.pdf
+.env
+*.sqlite3
+eval_results.json
+benchmark_results.json
+guardrail_redteam_results.json

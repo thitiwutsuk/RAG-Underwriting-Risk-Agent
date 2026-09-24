@@ -14,6 +14,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 # whether this module is imported by the FastAPI app, a script, or a test.
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
+from observability import get_langfuse_handler
 from tools import policy_lookup, risk_calculator
 
 DEFAULT_MODEL = os.environ.get("AGENT_MODEL", "gpt-4o-mini")
@@ -90,6 +91,11 @@ def run_assessment(session_id: str, message: str, agent=None) -> dict:
     the final answer plus a trace of any tool calls made along the way."""
     agent = agent or get_agent()
     config = {"configurable": {"thread_id": session_id}}
+
+    langfuse_handler = get_langfuse_handler()
+    if langfuse_handler is not None:
+        config["callbacks"] = [langfuse_handler]
+        config["metadata"] = {"langfuse_session_id": session_id}
 
     result = agent.invoke({"messages": [{"role": "user", "content": message}]}, config=config)
     messages = result["messages"]

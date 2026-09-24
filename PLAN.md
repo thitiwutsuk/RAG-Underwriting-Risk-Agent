@@ -76,6 +76,16 @@ No fixed calendar — each phase starts once the previous phase's verification c
 - [x] README finalized — added Architecture & Design Decisions, Deployment sections.
 - [x] Bug fix from end-to-end testing — missing `occupation_class` could make the model call `risk_calculator` with a literal `"MISSING"` placeholder, crashing the request into a 502. Fixed in `tools.py` (tool wrapper catches `ValueError`, returns `{"error": ...}`); regression test added.
 
+### Phase 5 — Observability: LangFuse, Docker, Prometheus/Grafana (post-README, not in original build order)
+
+- [x] LangFuse tracing (`backend/observability.py`) — optional, enabled only when `LANGFUSE_PUBLIC_KEY`/`LANGFUSE_SECRET_KEY` are set; wired into `agent.py`'s `run_assessment()` via LangChain callback + `langfuse_session_id` metadata. 3 tests in `tests/test_observability.py`.
+- [x] Prometheus metrics (`backend/main.py`, `prometheus-fastapi-instrumentator`) — `GET /metrics` with auto request/latency metrics plus 3 app-specific counters (`guardrail_rejections_total`, `agent_tool_calls_total`, `assessment_errors_total`), verified live via TestClient (guardrail rejection increments the counter correctly).
+- [x] Backend Dockerfile — bakes ingestion (PDF download + ChromaDB build) in at build time, same approach as the Render deploy.
+- [x] `docker-compose.yml` — backend + Prometheus + Grafana, Grafana dashboard and Prometheus datasource auto-provisioned from `observability/` (no manual UI setup needed).
+- [x] Full stack built and run for real via `docker compose up --build`: `/health` returns ok, a real `/assess` call through the container returns a correct risk tier with real RBC policy citations, `/metrics` shows the custom counters incrementing correctly, Prometheus target is `up`, and the Grafana dashboard renders live scraped data (2 total /assess requests, 2 tool calls, 1 guardrail rejection, 0 errors — matching the smoke-test traffic sent).
+- [x] Documented in `OBSERVABILITY.md`, linked from `README.md` § Core Features.
+- **Zero added cost by design**: LangFuse Cloud free tier, Prometheus/Grafana self-hosted via Docker — only pre-existing cost (OpenAI API usage) applies.
+
 ## Verification Checklist (per phase)
 
 - [x] **Ingestion** — 5 sample queries checked against source docs: 4/5 exact-section top match, 1/5 relevant but less specific (`scripts/spot_check_retrieval.py`).

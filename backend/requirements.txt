@@ -16,3 +16,5 @@ httpx
 sentence-transformers
 pypdf
 fonttools
+langfuse
+prometheus-fastapi-instrumentator

@@ -162,6 +162,12 @@ flowchart LR
 8. **Session Isolation Verification**
    - Two concurrent sessions tested to confirm conversation context never leaks between them (`tests/test_agent_session_isolation.py`).
 
+9. **Observability** (LangFuse + Prometheus/Grafana)
+   - Optional LLM tracing via LangFuse (free Hobby plan) — chain-of-thought steps, tool calls, latency, token cost per session. Fully optional: with no credentials set, tracing is silently skipped and the agent behaves identically.
+   - `GET /metrics` (Prometheus format): request rate/latency, plus app-specific counters — `guardrail_rejections_total`, `agent_tool_calls_total`, `assessment_errors_total`.
+   - `docker compose up --build` runs backend + Prometheus + Grafana locally with an auto-provisioned dashboard — no paid services, no manual dashboard setup.
+   - Full guide: **[OBSERVABILITY.md](./OBSERVABILITY.md)**.
+
 ## Deployment
 
 - Backend → Render, frontend → Vercel. Config checked into the repo (`render.yaml`, `backend/Procfile`); deployment itself requires your own Render/Vercel/OpenAI accounts.
