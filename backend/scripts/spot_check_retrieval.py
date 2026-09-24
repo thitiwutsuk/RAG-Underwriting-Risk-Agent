@@ -8,7 +8,7 @@ import os
 import sys
 
 import chromadb
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from ingest import CHROMA_PERSIST_DIR, COLLECTION_NAME, EMBEDDING_MODEL_NAME
@@ -23,12 +23,12 @@ QUERIES = [
 
 
 def main():
-    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
     client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
     collection = client.get_collection(COLLECTION_NAME)
 
     for query in QUERIES:
-        query_embedding = model.encode([query], normalize_embeddings=True).tolist()
+        query_embedding = [vec.tolist() for vec in model.embed([query])]
         results = collection.query(query_embeddings=query_embedding, n_results=3)
 
         print("=" * 100)

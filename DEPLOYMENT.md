@@ -11,7 +11,11 @@ Covers deploying the backend (FastAPI) to Render and the frontend (Next.js) to V
 - OpenAI API key with billing enabled — the agent calls the OpenAI API on every `/assess` request.
 - Local sanity check before deploying: `cd backend && source venv/bin/activate && python -m pytest -q` (30/30 as of this writing).
 - Free-tier specifics (spin-down, RAM/CPU limits, build minutes) change often — check current pricing pages if a limit matters. One stable fact worth planning around: Render's free web services spin down after inactivity and take a noticeable cold start (tens of seconds) on the next request — hit `/health` before a demo.
-- **RAM matters here.** Render's free web service has 512MB RAM. The embedding model used for `policy_lookup` (`EMBEDDING_MODEL_NAME` in `backend/ingest.py`) is deliberately kept lightweight (`sentence-transformers/all-MiniLM-L6-v2`, ~80MB) specifically because it fits — an earlier attempt with `BAAI/bge-m3` (a much larger multilingual model, ~2GB) OOM'd the deployed service with "Ran out of memory (used over 512MB) while running your code." If you ever swap the embedding model, re-check this before deploying to the free tier.
+- **RAM matters here.** Render's free web service has 512MB RAM. `policy_lookup`'s embeddings use `fastembed` (ONNX runtime), not `sentence-transformers`/`torch` — this took two failed attempts to land on:
+  1. `BAAI/bge-m3` via sentence-transformers (~2GB) OOM'd outright.
+  2. Swapping to a smaller model but keeping sentence-transformers (`all-MiniLM-L6-v2`) *still* OOM'd — loading `torch` itself uses ~600MB regardless of which model is loaded, already over the 512MB limit before the app does anything else.
+  3. `fastembed` has no torch dependency. Measured peak RSS for a full real `/assess` call (model load + ChromaDB query + LLM round trip) is **~420MB** — fits, with modest headroom (~90MB).
+  - If you ever change `EMBEDDING_MODEL_NAME` or the embedding library in `backend/ingest.py`/`backend/tools.py`, re-measure peak RSS before deploying to the free tier — `/usr/bin/time -l python -c "from agent import run_assessment; run_assessment(...)"` on macOS (or `/usr/bin/time -v` on Linux) reports `maximum resident set size`.
 
 ## (b) Backend deploy — Render
 
@@ -23,7 +27,7 @@ Config checked in at the repo root: `render.yaml` (Render Blueprint) and `backen
   3. Fill in env vars marked `sync: false` (dashboard-only, not in the file):
      - `OPENAI_API_KEY` — required, real API costs start here (see § e).
      - `FRONTEND_ORIGIN` — leave blank until the frontend is deployed (part c), then set to its Vercel URL. Comma-separate multiple origins. Until set, CORS only allows `http://localhost:3000` — a deployed frontend will hit a CORS error until this is set.
-     - `HF_TOKEN` — optional; only needed if `sentence-transformers` hits HuggingFace Hub's anonymous rate limit during the build's `ingest.py` step.
+     - `HF_TOKEN` — optional; only needed if `fastembed` hits HuggingFace Hub's anonymous rate limit while downloading the embedding model during the build's `ingest.py` step.
   4. Deploy, watch build logs — the `ingest.py` step downloads an embedding model and 8 PDFs, so the first build is slower than a typical Python service.
   5. Note the service's public URL (e.g. `https://rag-underwriting-backend-<hash>.onrender.com`) — the frontend needs it.
 - **Why the build command has three steps**, not one:

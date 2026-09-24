@@ -9,8 +9,8 @@ from functools import lru_cache
 
 import chromadb
 import pandas as pd
+from fastembed import TextEmbedding
 from langchain_core.tools import tool
-from sentence_transformers import SentenceTransformer
 
 from ingest import CHROMA_PERSIST_DIR, COLLECTION_NAME, EMBEDDING_MODEL_NAME
 
@@ -151,8 +151,8 @@ def risk_calculator(
 
 
 @lru_cache(maxsize=1)
-def _get_embedding_model() -> SentenceTransformer:
-    return SentenceTransformer(EMBEDDING_MODEL_NAME)
+def _get_embedding_model() -> TextEmbedding:
+    return TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
 
 
 @lru_cache(maxsize=1)
@@ -166,7 +166,7 @@ def search_policies(query: str, k: int = 3) -> list[dict]:
     model = _get_embedding_model()
     collection = _get_collection()
 
-    query_embedding = model.encode([query], normalize_embeddings=True).tolist()
+    query_embedding = [vec.tolist() for vec in model.embed([query])]
     results = collection.query(query_embeddings=query_embedding, n_results=k)
 
     hits = []

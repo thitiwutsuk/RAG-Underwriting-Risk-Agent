@@ -1,8 +1,8 @@
 """Parse mock Excel data and real specimen policy PDFs, chunk them, and embed into ChromaDB.
 
 Pipeline: parse (pandas/openpyxl for underwriting criteria, pypdf for policy PDFs)
--> chunk -> embed (local BAAI/bge-m3 via sentence-transformers, no API cost)
--> store in a persistent ChromaDB collection.
+-> chunk -> embed (local model via fastembed/ONNX, no API cost) -> store in a
+persistent ChromaDB collection.
 
 The policy documents in data/policies/ are real specimen/sample policies
 publicly published by insurers (RBC Insurance) for consumer reference. See
@@ -17,17 +17,21 @@ import os
 
 import chromadb
 import pandas as pd
+from fastembed import TextEmbedding
 from pypdf import PdfReader
-from sentence_transformers import SentenceTransformer
 
 POLICY_DIR = "data/policies"
 EXCEL_PATH = "data/underwriting_criteria.xlsx"
 CHROMA_PERSIST_DIR = "chroma_db"
 COLLECTION_NAME = "underwriting_knowledge_base"
-# Lightweight embedding model -- fits comfortably in Render's free-tier 512MB
-# RAM limit (BAAI/bge-m3 does not; it OOM'd the deployed backend, see
-# DEPLOYMENT.md / PLAN.md). all-MiniLM-L6-v2 is ~80MB vs. bge-m3's ~2GB.
-EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+# fastembed (ONNX runtime) instead of sentence-transformers (torch) -- fits
+# Render's free-tier 512MB RAM limit. Two prior attempts didn't: BAAI/bge-m3
+# (~2GB) OOM'd outright; switching just the model to a smaller one
+# (all-MiniLM-L6-v2 via sentence-transformers) still OOM'd, because loading
+# torch itself uses ~600MB regardless of model size. fastembed has no torch
+# dependency at all -- peak RSS for this model is ~220MB. See DEPLOYMENT.md /
+# PLAN.md for the measurements behind this.
+EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 MAX_CHUNK_CHARS = 1200
 
 # Human-readable product names for each real specimen PDF, used in citations.
@@ -125,10 +129,10 @@ def main():
     print(f"Built {len(corpus)} chunks from {POLICY_DIR} and {EXCEL_PATH}")
 
     print(f"Loading embedding model '{EMBEDDING_MODEL_NAME}' (first run downloads it locally)...")
-    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    model = TextEmbedding(model_name=EMBEDDING_MODEL_NAME)
 
     texts = [c["text"] for c in corpus]
-    embeddings = model.encode(texts, normalize_embeddings=True, show_progress_bar=True)
+    embeddings = [vec.tolist() for vec in model.embed(texts)]
 
     client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
     if COLLECTION_NAME in [c.name for c in client.list_collections()]:
@@ -137,7 +141,7 @@ def main():
 
     collection.add(
         ids=[f"chunk-{i}" for i in range(len(corpus))],
-        embeddings=embeddings.tolist(),
+        embeddings=embeddings,
         documents=texts,
         metadatas=[c["metadata"] for c in corpus],
     )
