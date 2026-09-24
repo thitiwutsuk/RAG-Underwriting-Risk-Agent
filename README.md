@@ -5,14 +5,16 @@
 <p>
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" /> <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /> <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" /> <img src="https://img.shields.io/badge/ChromaDB-FF6F00?style=for-the-badge&logo=databricks&logoColor=white" alt="ChromaDB" /> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas" /><br/>
 <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" /> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /> <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" /><br/>
-<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" /> <img src="https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white" alt="Railway" /> <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
+<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" /> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" /> <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" /><br/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" /> <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white" alt="Prometheus" /> <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" /> <img src="https://img.shields.io/badge/LangFuse-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangFuse" />
 </p>
 
 ## Demo
 
 ![Assessment result showing risk tier, reasoning, and cited policy sources](./docs/screenshots/assessment-light.png)
 
-- Not deployed yet — see [Deployment](#deployment) for the plan and [DEPLOYMENT.md](./DEPLOYMENT.md) for the steps.
+- **Live**: [rag-underwriting-risk-agent.vercel.app](https://rag-underwriting-risk-agent.vercel.app) (frontend) → [rag-underwriting-backend.onrender.com](https://rag-underwriting-backend.onrender.com) (backend API).
+  - Backend is on Render's free tier — the first request after idle may take ~30–60s to cold-start.
 - Run it locally: backend `uvicorn main:app` (from `backend/`), frontend `npm run dev` (from `frontend/`) — see `.env.example` for required env vars.
 
 ## Project Goal
@@ -45,7 +47,9 @@
 - **Database**
   - PostgreSQL (chat history, session metadata, applicant records) — planned, not yet wired up
 - **Deployment**
-  - Frontend: Vercel · Backend: Render (config for Railway also compatible)
+  - Frontend: Vercel · Backend: Render — both live (see [Deployment](#deployment))
+- **Observability**
+  - LangFuse (optional LLM tracing), Prometheus + Grafana (metrics/dashboard), Docker Compose (one-command local stack)
 
 ## Data
 
@@ -170,25 +174,33 @@ flowchart LR
 
 ## Deployment
 
-- Backend → Render, frontend → Vercel. Config checked into the repo (`render.yaml`, `backend/Procfile`); deployment itself requires your own Render/Vercel/OpenAI accounts.
+- **Live**: backend → [Render](https://rag-underwriting-backend.onrender.com) (free tier), frontend → [Vercel](https://rag-underwriting-risk-agent.vercel.app). Config checked into the repo (`render.yaml`, `frontend/vercel.json`); redeploying needs your own Render/Vercel/OpenAI accounts.
 - Full guide, required env vars, post-deploy smoke test: **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
 - Backend build re-downloads the gitignored policy PDFs and rebuilds ChromaDB on every deploy — skipping this silently breaks RAG grounding without breaking `/health`.
+- Embeddings run on `fastembed` (ONNX, no `torch`) — `sentence-transformers`/`torch` alone exceeds Render's 512MB free-tier RAM limit on import, regardless of model size.
+- CORS is env-var-driven (`FRONTEND_ORIGIN` on the backend) so the deployed frontend domain needs no code change.
 
 ## Project Structure
 
 ```
 project/
 ├── backend/
-│   ├── data/           # Excel, PDF policy sources
-│   ├── ingest.py       # data → embeddings
-│   ├── agent.py        # LangChain agent + tools
-│   ├── guardrails.py   # input/output validation
-│   ├── eval.py          # DeepEval benchmarking
-│   └── main.py          # FastAPI endpoints
+│   ├── data/               # Excel, PDF policy sources
+│   ├── ingest.py           # data → embeddings
+│   ├── agent.py            # LangChain agent + tools
+│   ├── guardrails.py       # input/output validation
+│   ├── observability.py    # optional LangFuse tracing
+│   ├── eval.py              # DeepEval benchmarking
+│   ├── main.py              # FastAPI endpoints + Prometheus metrics
+│   └── Dockerfile
 ├── frontend/
-│   └── (Next.js app)
+│   ├── (Next.js app)
+│   └── vercel.json          # pins Framework Preset so git-triggered deploys use @vercel/next
+├── observability/           # Prometheus config + Grafana provisioning/dashboard
+├── docker-compose.yml       # backend + Prometheus + Grafana, one command
 ├── render.yaml
 ├── DEPLOYMENT.md
+├── OBSERVABILITY.md
 └── README.md
 ```
 
@@ -203,8 +215,9 @@ project/
 7. Golden dataset + DeepEval suite, results recorded
 8. Guardrails + input/output validation, documented test cases
 9. Latency benchmark (manual vs. AI-assisted), documented methodology
-10. Deploy (Vercel + Render)
-11. Final README: architecture, design decisions, evaluation results
+10. Observability: LangFuse tracing, Docker Compose, Prometheus/Grafana dashboard
+11. Deploy (Vercel + Render) — live
+12. Final README: architecture, design decisions, evaluation results
 
 ## Architecture & Design Decisions
 
